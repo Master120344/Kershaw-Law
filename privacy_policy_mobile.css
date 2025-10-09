@@ -1,0 +1,201 @@
+/* TABLE OF CONTENTS - PRIVACY POLICY MOBILE
+--------------------------------------------------
+1. Variables & Global Resets
+2. Body & Typography Base
+3. Policy Header & Footer
+4. Main Content & Container
+5. Section & Typography Styling
+6. Special Notice & Placeholder Boxes
+7. Responsive Adjustments
+-------------------------------------------------- */
+
+/* 1. VARIABLES & GLOBAL RESETS */
+:root {
+    /* Primary Palette */
+    --color-primary-brand: #003366;
+    --color-primary-brand-rgb: 0, 51, 102;
+    --color-secondary-brand: #0A58A6;
+    --color-secondary-brand-rgb: 10, 88, 166;
+    --color-accent-gold: #B08D57;
+
+    /* Neutral Palette */
+    --color-text-dark: #1a232f;
+    --color-text-medium: #4a5568;
+    --color-text-light: #f0f2f5;
+
+    --color-bg-light: #FFFFFF;
+    --color-bg-off-white: #f8f9fa;
+    --color-bg-footer: #111827;
+
+    /* UI Elements */
+    --color-border-subtle: rgba(0, 0, 0, 0.1);
+    --color-shadow-soft: rgba(26, 43, 72, 0.05);
+
+    /* Typography */
+    --font-headings: 'Cinzel', serif;
+    --font-body: 'EB Garamond', serif;
+
+    /* Spacing */
+    --spacing-unit: 8px;
+    --content-max-width-capped: 720px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; font-size: 100%; }
+
+/* 2. BODY & TYPOGRAPHY BASE */
+body {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--color-text-dark);
+    background-color: var(--color-bg-light); /* Solid background for policy page */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+p { margin-bottom: calc(var(--spacing-unit) * 2.5); }
+a { color: var(--color-secondary-brand); text-decoration: none; }
+a:hover, a:focus { text-decoration: underline; color: var(--color-accent-gold); }
+ul { padding-left: calc(var(--spacing-unit) * 3); margin-bottom: calc(var(--spacing-unit) * 2.5); }
+li { margin-bottom: var(--spacing-unit); }
+strong { font-weight: 700; color: var(--color-text-dark); }
+address { font-style: normal; line-height: 1.7; }
+
+/* 3. POLICY HEADER & FOOTER */
+.policy-header, .policy-footer {
+    width: 100%;
+    padding: calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 2.5);
+    background-color: var(--color-primary-brand);
+    color: var(--color-text-light);
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 10;
+}
+.policy-header {
+    border-bottom: 2px solid var(--color-accent-gold);
+}
+.policy-footer {
+    background-color: var(--color-bg-footer);
+    margin-top: auto; /* Pushes footer to the bottom */
+    padding: calc(var(--spacing-unit) * 2.5) calc(var(--spacing-unit) * 2);
+    font-size: 0.85rem;
+    color: #b0bec5;
+}
+.header-firm-title {
+    font-family: var(--font-headings);
+    font-size: clamp(1.3rem, 5vw, 1.6rem);
+    font-weight: 600;
+    color: var(--color-text-light);
+    margin: 0;
+}
+.home-link-header, .home-link-footer {
+    color: inherit !important;
+    text-decoration: none !important;
+    transition: opacity 0.2s ease;
+}
+.home-link-header:hover, .home-link-footer:hover { opacity: 0.85; }
+.footer-nav-links {
+    margin-top: var(--spacing-unit);
+}
+.footer-nav-links a {
+    color: #b0bec5 !important;
+    margin: 0 var(--spacing-unit);
+}
+
+/* 4. MAIN CONTENT & CONTAINER */
+.policy-content-wrapper {
+    flex-grow: 1;
+    width: 100%;
+    padding: calc(var(--spacing-unit) * 4) calc(var(--spacing-unit) * 2);
+}
+.policy-container {
+    max-width: var(--content-max-width-capped);
+    margin: 0 auto;
+    background-color: var(--color-bg-light);
+    padding: calc(var(--spacing-unit) * 3);
+    border-radius: var(--border-radius-medium);
+    box-shadow: 0 0 25px var(--color-shadow-soft);
+}
+
+/* 5. SECTION & TYPOGRAPHY STYLING */
+.policy-main-title {
+    font-family: var(--font-headings);
+    font-size: clamp(2rem, 8vw, 2.8rem);
+    font-weight: 700;
+    color: var(--color-primary-brand);
+    text-align: center;
+    margin-bottom: var(--spacing-unit);
+    line-height: 1.2;
+}
+.last-updated {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--color-text-medium);
+    margin-bottom: calc(var(--spacing-unit) * 4);
+    font-style: italic;
+}
+.privacy-commitment-statement {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: var(--color-text-dark);
+    text-align: justify;
+    margin-bottom: calc(var(--spacing-unit) * 3);
+}
+section {
+    margin-top: calc(var(--spacing-unit) * 5);
+    padding-top: calc(var(--spacing-unit) * 3);
+    border-top: 1px solid var(--color-border-subtle);
+}
+section:first-of-type {
+    margin-top: calc(var(--spacing-unit) * 3);
+}
+section h3, section h4 {
+    font-family: var(--font-headings);
+    font-weight: 700;
+    color: var(--color-primary-brand);
+    margin-bottom: calc(var(--spacing-unit) * 2);
+}
+section h3 { font-size: clamp(1.4rem, 6vw, 1.8rem); }
+section h4 { font-size: clamp(1.1rem, 5vw, 1.3rem); margin-top: calc(var(--spacing-unit) * 3); }
+
+/* 6. SPECIAL NOTICE & PLACEHOLDER BOXES */
+.important-notice, .placeholder-section {
+    margin: calc(var(--spacing-unit) * 3) 0;
+    padding: calc(var(--spacing-unit) * 2);
+    border-radius: var(--border-radius-small);
+    border-left-width: 5px;
+    border-left-style: solid;
+}
+.important-notice {
+    background-color: rgba(var(--color-secondary-brand-rgb), 0.05);
+    border-left-color: var(--color-secondary-brand);
+}
+.important-notice p {
+    margin: 0;
+    color: var(--color-text-dark);
+    font-size: 1rem;
+}
+.placeholder-section {
+    background-color: #f5f5f5;
+    border: 1px dashed #ccc;
+    padding: calc(var(--spacing-unit) * 2.5);
+}
+.placeholder-section h3, .placeholder-section h4 {
+    color: var(--color-text-medium);
+}
+.placeholder-section em {
+    color: var(--color-text-medium);
+    font-style: italic;
+}
+.placeholder-section p {
+    color: var(--color-text-medium);
+    font-size: 0.95rem;
+}
+
+/* 7. RESPONSIVE ADJUSTMENTS */
+@media (min-width: 600px) {
+    .policy-content-wrapper { padding: calc(var(--spacing-unit) * 6) calc(var(--spacing-unit) * 3); }
+    .policy-container { padding: calc(var(--spacing-unit) * 5); }
+}

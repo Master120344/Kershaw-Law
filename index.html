@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Kershaw Law Firm P.C.</title>
+
+    <!--
+      This script is the core of the redirection logic.
+      It runs immediately when the page loads to check the device type.
+    -->
+    <script>
+      (function() {
+        // --- Device Detection Logic ---
+        
+        // This regular expression checks the browser's User Agent string for common mobile keywords.
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        // We also check the screen width as a fallback. Any width less than 768px is typically considered mobile/tablet.
+        const isSmallScreen = window.screen.width < 768;
+
+        // --- Redirection ---
+
+        // The destination URL is determined. If it's a mobile device or a small screen, go to the mobile page.
+        // Otherwise, go to the desktop page.
+        const destinationUrl = (isMobile || isSmallScreen) ? 'index_mobile.html' : 'index_desktop.html';
+
+        // 'window.location.replace()' is used instead of 'window.location.href ='.
+        // This is important because it replaces the current page in the browser's history.
+        // This prevents the user from getting stuck in a redirect loop if they press the "Back" button.
+        window.location.replace(destinationUrl);
+
+      })();
+    </script>
+
+    <!--
+      The content below is a fallback for two scenarios:
+      1. For browsers that have JavaScript disabled.
+      2. It provides a brief "Loading..." message for the fraction of a second before the redirect script runs.
+    -->
+    <style>
+        body { font-family: sans-serif; background-color: #003366; color: #ffffff; text-align: center; padding-top: 20%; }
+        a { color: #B08D57; }
+        p { line-height: 1.5; }
+    </style>
+</head>
+<body>
+
+    <p>Loading The Kershaw Law Firm P.C. website...</p>
+
+    <!-- This <noscript> tag only displays its content if JavaScript is turned off in the user's browser. -->
+    <noscript>
+        <p>
+            It seems JavaScript is disabled. Please select the appropriate version for your device:
+        </p>
+        <p>
+            <a href="index_desktop.html">Desktop Version</a>
+            <br><br>
+            <a href="index_mobile.html">Mobile Version</a>
+        </p>
+    </noscript>
+
+</body>
+</html>

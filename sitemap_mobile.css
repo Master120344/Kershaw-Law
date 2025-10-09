@@ -1,0 +1,185 @@
+/* TABLE OF CONTENTS
+--------------------------------------------------
+1. Variables & Global Resets
+2. Body & Typography Base
+3. Loader & Background Styles
+4. Header Styles
+5. Page Content & Section Base
+6. Sitemap Page Specific Styles (NEW)
+7. Mobile Tabs Navigation
+8. Footer Styles
+9. Animation & Utility Classes
+-------------------------------------------------- */
+
+/* 1. VARIABLES & GLOBAL RESETS */
+:root {
+    /* Primary Palette */
+    --color-primary-brand: #003366;
+    --color-primary-brand-rgb: 0, 51, 102;
+    --color-secondary-brand: #0A58A6;
+    --color-accent-gold: #B08D57;
+    
+    /* Neutral Palette */
+    --color-text-dark: #1a232f;
+    --color-text-medium: #4a5568;
+    --color-text-light: #f0f2f5;
+    
+    --color-bg-light: #FFFFFF;
+    --color-bg-off-white: #f8f9fa;
+    --color-bg-footer: #111827;
+
+    /* Loader Specific */
+    --color-loader-bg: var(--color-primary-brand);
+    --color-loader-text: var(--color-text-light);
+    --loader-display-duration: 0.1s;
+
+    /* UI Elements */
+    --color-border-subtle: rgba(0, 0, 0, 0.08);
+    --color-border-medium: rgba(0, 0, 0, 0.15);
+    --color-shadow-medium: rgba(26, 43, 72, 0.1);
+
+    /* Typography */
+    --font-headings: 'Cinzel', serif;
+    --font-body: 'EB Garamond', serif;
+
+    /* Spacing & Sizing */
+    --spacing-unit: 8px;
+    --header-height-mobile: 60px;
+    --tabs-height-mobile: 65px;
+    --content-max-width: 90vw;
+    --content-max-width-capped: 720px;
+    --border-radius-small: 5px;
+    --border-radius-medium: 10px;
+
+    /* Transitions */
+    --transition-fast: 0.2s ease-in-out;
+    --transition-medium: 0.35s ease-in-out;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; font-size: 100%; -webkit-tap-highlight-color: transparent; }
+
+/* 2. BODY & TYPOGRAPHY BASE */
+body {
+    font-family: var(--font-body); font-size: 1.05rem; line-height: 1.7;
+    color: var(--color-text-dark); background-color: var(--color-bg-off-white);
+    overflow-x: hidden; position: relative; opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    padding-top: var(--header-height-mobile); padding-bottom: var(--tabs-height-mobile);
+    display: flex; flex-direction: column; min-height: 100vh;
+}
+body.loaded { opacity: 1; }
+h2 { font-family: var(--font-headings); color: var(--color-primary-brand); font-size:clamp(1.8rem, 6vw, 2.6rem); font-weight: 700; }
+h3 { font-family: var(--font-headings); color: var(--color-primary-brand); font-size:clamp(1.3rem, 5vw, 1.8rem); font-weight: 600; }
+p { margin-bottom:calc(var(--spacing-unit)*2); }
+a { color:var(--color-secondary-brand); text-decoration:none; transition:color var(--transition-fast); }
+a:hover, a:focus { color:var(--color-accent-gold); text-decoration:underline; }
+
+/* 3. LOADER & BACKGROUND STYLES */
+.splash-loader, .page-transition-loader { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; display: flex; align-items: center; justify-content: center; z-index: 10000; transition: opacity 0.3s ease-out, visibility 0.3s ease-out; }
+.splash-loader { background-color: var(--color-loader-bg); transition-delay: var(--loader-display-duration); }
+.splash-loader.hidden, .page-transition-loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.splash-main-title { font-size: clamp(1.8rem, 8vw, 2.4rem); color: var(--color-loader-text); animation: pulseLogoSplash 2.5s infinite ease-in-out alternate; }
+.splash-main-pc { font-weight: 500; font-size: 0.8em; }
+@keyframes pulseLogoSplash { from { transform: scale(0.98); opacity: 0.85; } to { transform: scale(1.02); opacity: 1; } }
+.page-transition-loader { background-color: rgba(var(--color-primary-brand-rgb), 0.85); backdrop-filter: blur(5px); }
+.spinner { width: 50px; height: 50px; border: 5px solid rgba(255,255,255,0.2); border-top-color: var(--color-accent-gold); border-radius: 50%; animation: spinLoader 1s linear infinite; }
+@keyframes spinLoader { to { transform: rotate(360deg); } }
+#background-static { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background: url('austin.jpg') center/cover no-repeat; filter: saturate(0.7) brightness(0.75); }
+#background-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: linear-gradient(180deg, rgba(var(--color-primary-brand-rgb), 0.15), rgba(var(--color-primary-brand-rgb), 0.55)); }
+
+/* 4. HEADER STYLES */
+.site-header { position: fixed; top: 0; left: 0; width: 100%; z-index: 900; height: var(--header-height-mobile); background-color: rgba(255, 255, 255, 0.92); backdrop-filter: blur(10px); box-shadow: 0 1px 5px var(--color-shadow-medium); border-bottom: 1px solid var(--color-border-subtle); display: flex; align-items: center; padding: 0 calc(var(--spacing-unit) * 2); transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1); }
+.site-header.scrolled-down { transform: translateY(-100%); }
+.header-content { width: 100%; display: flex; justify-content: center; align-items: center; }
+.firm-title-link { text-decoration: none !important; }
+.firm-name-header { font-size: clamp(1.2rem, 5vw, 1.5rem); color: var(--color-primary-brand); font-weight: 600; margin: 0; transition: color var(--transition-fast); }
+
+/* 5. PAGE CONTENT & SECTION BASE */
+.page-content-wrapper { flex-grow: 1; width: 100%; position: relative; z-index: 1; }
+.content-section { width: 100%; padding: calc(var(--spacing-unit) * 6) calc(var(--spacing-unit) * 2); background-color: rgba(255, 255, 255, 0.88); }
+.section-container { max-width: var(--content-max-width-capped); margin: 0 auto; width: var(--content-max-width); }
+.section-title { text-align: center; margin-bottom: calc(var(--spacing-unit) * 1.5); position: relative; padding-bottom: calc(var(--spacing-unit) * 1.5); }
+.section-title.decorative-title::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 70px; height: 3px; background-color: var(--color-accent-gold); border-radius: 2px; }
+.section-intro-text { font-size: 1.1rem; line-height: 1.75; color: var(--color-text-medium); text-align: center; max-width: 580px; margin: 0 auto calc(var(--spacing-unit) * 4) auto; }
+
+/* 6. SITEMAP PAGE SPECIFIC STYLES */
+.sitemap-container {
+    display: grid;
+    gap: calc(var(--spacing-unit) * 4);
+    margin-top: calc(var(--spacing-unit) * 2);
+}
+.sitemap-group-title {
+    margin-bottom: calc(var(--spacing-unit) * 2);
+    padding-bottom: var(--spacing-unit);
+    border-bottom: 2px solid var(--color-border-subtle);
+    color: var(--color-primary-brand);
+}
+.sitemap-link-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--spacing-unit);
+}
+.sitemap-link-list li a, .sitemap-link-list li span {
+    display: flex;
+    align-items: center;
+    padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 2);
+    background-color: var(--color-bg-light);
+    border-radius: var(--border-radius-small);
+    border: 1px solid var(--color-border-subtle);
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+}
+.sitemap-link-list li a {
+    color: var(--color-secondary-brand);
+}
+.sitemap-link-list li a:hover, .sitemap-link-list li a:focus {
+    color: var(--color-text-light);
+    background-color: var(--color-secondary-brand);
+    border-color: var(--color-secondary-brand);
+    transform: translateX(5px);
+    text-decoration: none;
+}
+.sitemap-link-list li i {
+    margin-right: calc(var(--spacing-unit) * 1.5);
+    color: var(--color-accent-gold);
+    transition: color var(--transition-fast);
+}
+.sitemap-link-list li a:hover i, .sitemap-link-list li a:focus i {
+    color: var(--color-text-light);
+}
+.sitemap-link-list li.current-page-link span {
+    background-color: rgba(var(--color-primary-brand-rgb), 0.05);
+    color: var(--color-text-medium);
+    font-style: italic;
+}
+.sitemap-link-list li.current-page-link i {
+    color: var(--color-text-medium);
+}
+
+/* 7. MOBILE TABS NAVIGATION */
+.mobile-tabs { display: flex; position: fixed; bottom: 0; left: 0; right: 0; width: 100%; height: var(--tabs-height-mobile); background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08); border-top: 1px solid var(--color-border-subtle); z-index: 1000; justify-content: space-around; align-items: stretch; padding: calc(var(--spacing-unit) * 0.25) 0; }
+.mobile-tabs .tab-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: var(--color-text-medium); text-decoration: none; padding: calc(var(--spacing-unit) * 0.5) calc(var(--spacing-unit) * 0.25); font-size: 0.65rem; line-height: 1.25; transition: color var(--transition-fast); position: relative; }
+.mobile-tabs .tab-icon { font-size: 1.3rem; margin-bottom: calc(var(--spacing-unit) * 0.35); }
+.mobile-tabs .tab-item.active { color: var(--color-primary-brand) !important; }
+.mobile-tabs .tab-item.active::before { content: ''; position: absolute; top: 2px; left: 50%; transform: translateX(-50%); width: 35%; max-width: 25px; height: 2.5px; background-color: var(--color-accent-gold); border-radius: 0 0 2px 2px; }
+
+/* 8. FOOTER STYLES */
+.site-footer { background-color: var(--color-bg-footer); color: #b0bec5; text-align: center; padding: calc(var(--spacing-unit) * 4) calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 2); font-size: 0.85rem; line-height: 1.6; }
+.footer-content { max-width: var(--content-max-width-capped); margin: 0 auto; width: var(--content-max-width); }
+.footer-firm-identity { margin-bottom: calc(var(--spacing-unit) * 2.5); }
+.footer-firm-name { font-family: var(--font-headings); font-size: 1.1rem; color: var(--color-text-light); font-weight: 600; margin: 0; }
+.footer-links { margin-bottom: calc(var(--spacing-unit) * 1.5); font-size: 0.8rem; }
+.footer-links a { color: #b0bec5 !important; margin: 0 calc(var(--spacing-unit) * 0.5); }
+.footer-link-separator { margin: 0 calc(var(--spacing-unit) * 0.5); opacity: 0.7; }
+.footer-copyright { margin-bottom: var(--spacing-unit); font-size: 0.75rem; }
+.footer-disclaimer { font-size: 0.7rem; opacity: 0.65; margin-top: var(--spacing-unit); }
+
+/* 9. ANIMATION & UTILITY CLASSES */
+.animate-on-scroll { opacity: 0; transition-property: opacity, transform; transition-duration: 0.7s; transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.animate-on-scroll.fade-in-up { transform: translateY(40px); }
+.animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
