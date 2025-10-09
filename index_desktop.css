@@ -92,11 +92,12 @@ img { max-width: 100%; height: auto; display: block; }
 #background-static { 
     position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; 
     background: url('austin.jpg') center top/cover no-repeat; 
-    filter: saturate(0.5) brightness(0.2) contrast(1.1);
+    /* Adjusted filter: less blue/dark than before */
+    filter: saturate(0.7) brightness(0.5) contrast(1.1);
 }
 #background-overlay { 
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; 
-    background: rgba(var(--color-primary-brand-rgb), 0.85);
+    /* Removed the fixed blue overlay as requested */
+    display: none;
 }
 
 /* 4. HEADER & DESKTOP NAVIGATION STYLES */
@@ -115,7 +116,7 @@ img { max-width: 100%; height: auto; display: block; }
 .firm-title-link:hover .firm-name-header { color: var(--color-secondary-brand); }
 .firm-name-pc { 
     font-weight: inherit; font-size: 0.8em; margin-left: calc(var(--spacing-unit) * 0.5); 
-    color: var(--color-primary-brand); /* Match primary brand color */
+    color: var(--color-primary-brand); /* CONFIRMED: P.C. matches the blue primary brand color of the firm name */
 }
 
 .desktop-nav {
@@ -129,8 +130,21 @@ img { max-width: 100%; height: auto; display: block; }
     padding: calc(var(--spacing-unit) * 1.5) 0; position: relative;
     transition: color var(--transition-fast); text-transform: uppercase;
 }
+/* Replaced the dot with an underline for hover/active */
 .nav-link::after {
-    display: none; /* Removed the dot */
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0; /* Starts at 0 width */
+    height: 3px; /* Underline thickness */
+    background-color: var(--color-accent-gold); /* Gold color for the underline */
+    transition: width var(--transition-medium);
+    display: block;
+}
+/* On hover/active, the underline expands */
+.nav-link:hover::after, .nav-link.active::after {
+    width: 100%; 
 }
 .nav-link:hover, .nav-link.active { 
     color: var(--color-accent-gold) !important; 
@@ -142,8 +156,27 @@ img { max-width: 100%; height: auto; display: block; }
     padding: calc(var(--spacing-unit) * 12) calc(var(--spacing-unit) * 4);
     border: none;
 }
-.content-section:nth-child(odd) { background-color: var(--color-bg-light); }
-.content-section:nth-child(even) { background-color: var(--color-bg-off-white); }
+/* Added subtle "wallpaper" effect */
+.content-section:nth-child(odd) { 
+    background-color: var(--color-bg-light); 
+    background-image: repeating-linear-gradient(
+        45deg,
+        rgba(0, 0, 0, 0.01),
+        rgba(0, 0, 0, 0.01) 20px,
+        transparent 20px,
+        transparent 40px
+    );
+}
+.content-section:nth-child(even) { 
+    background-color: var(--color-bg-off-white); 
+    background-image: repeating-linear-gradient(
+        45deg,
+        rgba(0, 0, 0, 0.015),
+        rgba(0, 0, 0, 0.015) 20px,
+        transparent 20px,
+        transparent 40px
+    );
+}
 .section-container { max-width: var(--content-max-width); margin: 0 auto; width: 100%; }
 .section-title { 
     text-align: center; margin-bottom: calc(var(--spacing-unit) * 4); 
@@ -170,7 +203,8 @@ img { max-width: 100%; height: auto; display: block; }
     color: var(--color-text-light); 
     background: url('austin.jpg') center/cover no-repeat;
     background-blend-mode: multiply;
-    background-color: rgba(var(--color-primary-brand-rgb), 0.7);
+    /* Changed blue overlay to a dark/black overlay for better contrast and image visibility */
+    background-color: rgba(0, 0, 0, 0.65);
 }
 .hero-content-box { 
     background-color: transparent;
