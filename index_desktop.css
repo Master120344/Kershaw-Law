@@ -31,8 +31,8 @@
     --color-text-on-primary: #FFFFFF;
 
     --color-bg-light: #FFFFFF;
-    --color-bg-off-white: #fcfcfc;
-    --color-bg-medium-grey: #f4f6f8;
+    --color-bg-off-white: #f9f9f9;
+    --color-bg-medium-grey: #f0f0f0;
     --color-bg-dark: var(--color-primary-brand);
     --color-bg-footer: #1F2937;
 
@@ -113,7 +113,10 @@ img { max-width: 100%; height: auto; display: block; }
 .firm-title-link { text-decoration: none !important; }
 .firm-name-header { font-size: 1.9rem; color: var(--color-primary-brand); font-weight: 700; margin: 0; transition: color var(--transition-fast); letter-spacing: 0.5px; }
 .firm-title-link:hover .firm-name-header { color: var(--color-secondary-brand); }
-.firm-name-pc { font-weight: inherit; font-size: 0.8em; margin-left: calc(var(--spacing-unit) * 0.5); color: var(--color-accent-gold); }
+.firm-name-pc { 
+    font-weight: inherit; font-size: 0.8em; margin-left: calc(var(--spacing-unit) * 0.5); 
+    color: var(--color-primary-brand); /* Match primary brand color */
+}
 
 .desktop-nav {
     display: flex;
@@ -127,13 +130,11 @@ img { max-width: 100%; height: auto; display: block; }
     transition: color var(--transition-fast); text-transform: uppercase;
 }
 .nav-link::after {
-    content: ''; position: absolute; bottom: 0; left: 50%;
-    width: 6px; height: 6px; background-color: var(--color-accent-gold);
-    border-radius: 50%; opacity: 0; transform: translateX(-50%) translateY(4px);
-    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    display: none; /* Removed the dot */
 }
-.nav-link:hover, .nav-link.active { color: var(--color-accent-gold) !important; }
-.nav-link:hover::after, .nav-link.active::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+.nav-link:hover, .nav-link.active { 
+    color: var(--color-accent-gold) !important; 
+}
 
 /* 5. PAGE CONTENT WRAPPER & SECTION BASE */
 .page-content-wrapper { flex-grow: 1; width: 100%; position: relative; z-index: 1; }
@@ -144,12 +145,12 @@ img { max-width: 100%; height: auto; display: block; }
 .content-section:nth-child(odd) { background-color: var(--color-bg-light); }
 .content-section:nth-child(even) { background-color: var(--color-bg-off-white); }
 .section-container { max-width: var(--content-max-width); margin: 0 auto; width: 100%; }
-.section-title { text-align: center; margin-bottom: calc(var(--spacing-unit) * 2.5); position: relative; padding-bottom: calc(var(--spacing-unit) * 2); }
+.section-title { 
+    text-align: center; margin-bottom: calc(var(--spacing-unit) * 4); 
+    position: relative; padding-bottom: 0; 
+}
 .section-title.decorative-title::after { 
-    content: ''; position: absolute; bottom: 0; left: 50%; 
-    transform: translateX(-50%); width: 120px; height: 1.5px; 
-    background-color: var(--color-accent-gold); 
-    border-radius: 0;
+    display: none; /* Removed decorative line */
 }
 .section-intro-text { 
     font-size: 1.25rem;
@@ -212,10 +213,10 @@ img { max-width: 100%; height: auto; display: block; }
     font-size: 1.15rem; 
     padding: calc(var(--spacing-unit) * 3) 0 calc(var(--spacing-unit) * 3) calc(var(--spacing-unit) * 7); 
     position: relative; 
-    border-bottom: 1px solid var(--color-border-subtle);
+    border-bottom: 1px solid var(--color-bg-medium-grey);
     transition: background-color var(--transition-fast);
 }
-.service-list-detailed li:hover { background-color: var(--color-bg-medium-grey); }
+.service-list-detailed li:hover { background-color: var(--color-bg-off-white); }
 .service-list-detailed li:last-child { border-bottom: none; }
 .service-list-detailed li > i.fa-solid { 
     position: absolute; left: calc(var(--spacing-unit)); top: 50%; 
@@ -234,22 +235,35 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* 8. TESTIMONIALS (GOOGLE REVIEW BOX) */
 .testimonials-section { 
-    background-color: var(--color-bg-medium-grey) !important; 
-    padding-top: calc(var(--spacing-unit) * 8);
-    padding-bottom: calc(var(--spacing-unit) * 8);
+    background: url('austin.jpg') center/cover no-repeat;
+    background-attachment: fixed; /* Parallax effect for premium feel */
+    padding-top: calc(var(--spacing-unit) * 10);
+    padding-bottom: calc(var(--spacing-unit) * 10);
+    position: relative;
+    z-index: 1;
 }
+.testimonials-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(var(--color-primary-brand-rgb), 0.75); /* Dark blue overlay */
+    z-index: 2;
+}
+.testimonials-section .section-container { z-index: 3; position: relative; }
+.testimonials-section .section-title { color: var(--color-text-light); }
 .google-reviews-callout {
     margin-top: calc(var(--spacing-unit) * 3);
     padding: calc(var(--spacing-unit) * 5);
-    background-color: var(--color-bg-light);
+    background-color: var(--color-bg-light); /* Solid white for high contrast */
     border-radius: var(--border-radius-medium);
     text-align: center;
-    box-shadow: 0 8px 30px var(--color-shadow-soft);
-    border: 1px solid var(--color-border-subtle);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3); /* Subtle, strong shadow */
+    border: 2px solid var(--color-accent-gold); /* Premium gold border */
     max-width: 600px; margin-left: auto; margin-right: auto;
     transition: transform var(--transition-medium);
+    z-index: 4;
 }
-.google-reviews-callout:hover { transform: translateY(-5px); }
+.google-reviews-callout:hover { transform: translateY(-7px); }
 .google-reviews-title {
     font-size: 1.75rem; color: var(--color-primary-brand);
     margin-bottom: calc(var(--spacing-unit) * 2);
@@ -272,7 +286,7 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* 9. CTA BUTTONS & SECTIONS */
 .cta-button {
-    display: inline-flex; align-items: center; justify-content: center; gap: calc(var(--spacing-unit) * 1.5);
+    display: inline-flex; align-items: center; justify-content: center; 
     padding: calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 5);
     background: linear-gradient(160deg, var(--color-accent-gold), var(--color-accent-gold-darker));
     color: var(--color-text-on-gold) !important; text-decoration: none !important;
@@ -305,7 +319,6 @@ img { max-width: 100%; height: auto; display: block; }
     padding: calc(var(--spacing-unit) * 10) calc(var(--spacing-unit) * 4);
 }
 .final-cta-section .section-title { color: var(--color-text-light); margin-bottom: calc(var(--spacing-unit) * 3); }
-.final-cta-section .section-title::after { background-color: var(--color-accent-gold); width: 100px; height: 2px; }
 .final-cta-section .section-intro-text { color: rgba(255,255,255,0.85); font-size: 1.2rem; }
 .final-cta-section .cta-button { margin-top: calc(var(--spacing-unit) * 4); }
 
@@ -323,88 +336,3 @@ img { max-width: 100%; height: auto; display: block; }
 .footer-link-separator { margin: 0 calc(var(--spacing-unit) * 0.5); opacity: 0.7; }
 .footer-copyright { margin-bottom: var(--spacing-unit) * 2; font-size: 0.85rem; }
 .footer-disclaimer { font-size: 0.8rem; opacity: 0.75; margin-top: var(--spacing-unit) * 2; max-width: 900px; margin-left: auto; margin-right: auto; line-height: 1.5; }
-```
-
----
-
-## 3. index\_desktop.js (The Minimal Logic)
-
-The JavaScript is stripped of all loader and animation logic. It now only contains essential functions for the utility (debounce), footer year, active navigation, and the sticky header behavior.
-
-```javascript
-// --- Utility Functions ---
-function debounce(func, wait, immediate) {
-    let timeout;
-    return function executedFunction() {
-        const context = this;
-        const args = arguments;
-        const later = function() {
-            timeout = null;
-            if (!immediate) func.apply(context, args);
-        };
-        const callNow = immediate && !timeout;
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-        if (callNow) func.apply(context, args);
-    };
-}
-
-// --- Essential Page Setup Functions ---
-
-function initFooterYear() {
-    const yearSpan = document.getElementById('current-year');
-    if (yearSpan) {
-        yearSpan.textContent = new Date().getFullYear();
-    }
-}
-
-function initDesktopNavActiveTab() {
-    const desktopLinks = document.querySelectorAll('.desktop-nav .nav-link');
-    if (!desktopLinks.length) return;
-    
-    let currentPage = window.location.pathname.split('/').pop() || 'index_desktop.html';
-
-    desktopLinks.forEach(link => {
-        const linkTarget = link.getAttribute('href');
-        link.classList.remove('active');
-        link.removeAttribute('aria-current');
-        if (linkTarget === currentPage) {
-            link.classList.add('active');
-            link.setAttribute('aria-current', 'page');
-        }
-    });
-}
-
-function initStickyHeaderBehavior() {
-    const header = document.getElementById('site-header');
-    if (!header) return;
-
-    let lastScrollTop = 0;
-    const delta = 10;
-    const headerHeight = header.offsetHeight;
-
-    const handleScroll = debounce(() => {
-        const nowST = window.pageYOffset || document.documentElement.scrollTop;
-        if (Math.abs(lastScrollTop - nowST) <= delta) return;
-
-        if (nowST > lastScrollTop && nowST > headerHeight * 0.5) {
-            header.classList.add('scrolled-down');
-        } 
-        else if (nowST < lastScrollTop || nowST <= headerHeight * 0.5) {
-             header.classList.remove('scrolled-down');
-        }
-        lastScrollTop = nowST <= 0 ? 0 : nowST;
-    }, 25);
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    if (window.pageYOffset > headerHeight * 0.5) {
-        header.classList.add('scrolled-down');
-    }
-}
-
-// --- Main DOM Ready Listener ---
-document.addEventListener('DOMContentLoaded', () => {
-    initFooterYear();
-    initDesktopNavActiveTab();
-    initStickyHeaderBehavior();
-});
