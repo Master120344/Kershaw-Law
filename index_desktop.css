@@ -92,11 +92,11 @@ img { max-width: 100%; height: auto; display: block; }
 #background-static { 
     position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; 
     background: url('austin.jpg') center top/cover no-repeat; 
-    /* Adjusted filter: less blue/dark than before */
+    /* Less dark/saturated filter to better show the image */
     filter: saturate(0.7) brightness(0.5) contrast(1.1);
 }
 #background-overlay { 
-    /* Removed the fixed blue overlay as requested */
+    /* Removed fixed blue overlay as requested */
     display: none;
 }
 
@@ -116,7 +116,7 @@ img { max-width: 100%; height: auto; display: block; }
 .firm-title-link:hover .firm-name-header { color: var(--color-secondary-brand); }
 .firm-name-pc { 
     font-weight: inherit; font-size: 0.8em; margin-left: calc(var(--spacing-unit) * 0.5); 
-    color: var(--color-primary-brand); /* CONFIRMED: P.C. matches the blue primary brand color of the firm name */
+    color: var(--color-primary-brand); /* CONFIRMED: P.C. matches primary brand color */
 }
 
 .desktop-nav {
@@ -130,11 +130,11 @@ img { max-width: 100%; height: auto; display: block; }
     padding: calc(var(--spacing-unit) * 1.5) 0; position: relative;
     transition: color var(--transition-fast); text-transform: uppercase;
 }
-/* Replaced the dot with an underline for hover/active */
+/* Navigation Underline Fix */
 .nav-link::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: -5px; /* Positioned below the link text */
     left: 0;
     width: 0; /* Starts at 0 width */
     height: 3px; /* Underline thickness */
@@ -156,19 +156,19 @@ img { max-width: 100%; height: auto; display: block; }
     padding: calc(var(--spacing-unit) * 12) calc(var(--spacing-unit) * 4);
     border: none;
 }
-/* Added subtle "wallpaper" effect */
+/* Applied "wallpaper" to all content sections as requested */
 .content-section:nth-child(odd) { 
-    background-color: var(--color-bg-light); 
+    background-color: var(--color-bg-light); /* Base color 1 */
     background-image: repeating-linear-gradient(
         45deg,
-        rgba(0, 0, 0, 0.01),
-        rgba(0, 0, 0, 0.01) 20px,
+        rgba(0, 0, 0, 0.015),
+        rgba(0, 0, 0, 0.015) 20px,
         transparent 20px,
         transparent 40px
     );
 }
 .content-section:nth-child(even) { 
-    background-color: var(--color-bg-off-white); 
+    background-color: var(--color-bg-off-white); /* Base color 2 (subtle difference) */
     background-image: repeating-linear-gradient(
         45deg,
         rgba(0, 0, 0, 0.015),
@@ -201,21 +201,21 @@ img { max-width: 100%; height: auto; display: block; }
     display: flex; align-items: center; justify-content: center; text-align: center; 
     padding: calc(var(--spacing-unit) * 5); 
     color: var(--color-text-light); 
-    background: url('austin.jpg') center/cover no-repeat;
-    background-blend-mode: multiply;
-    /* Changed blue overlay to a dark/black overlay for better contrast and image visibility */
-    background-color: rgba(0, 0, 0, 0.65);
+    /* Removed the Hero background image and color overlay to fully show the fixed background */
+    background: transparent; 
 }
 .hero-content-box { 
-    background-color: transparent;
-    padding: 0; 
-    box-shadow: none; 
+    /* Added a semi-transparent box to make text readable over the busy fixed background image */
+    background-color: rgba(0, 0, 0, 0.45); 
+    padding: calc(var(--spacing-unit) * 6); 
+    border-radius: var(--border-radius-medium);
+    box-shadow: 0 0 30px rgba(0,0,0,0.5); /* Stronger shadow for contrast */
     max-width: 1000px; 
 }
 .hero-main-title { 
     font-size: clamp(3.5rem, 7vw, 5rem); 
     color: var(--color-text-light); 
-    text-shadow: 0 0 10px rgba(0,0,0,0.5); 
+    text-shadow: 0 0 15px rgba(0,0,0,1); /* Stronger shadow for contrast */
     margin-bottom: var(--spacing-unit); 
     letter-spacing: 2px;
 }
@@ -275,6 +275,8 @@ img { max-width: 100%; height: auto; display: block; }
     padding-bottom: calc(var(--spacing-unit) * 10);
     position: relative;
     z-index: 1;
+    /* This section remains unique, overriding the "wallpaper" and using its own background image */
+    background-image: none; 
 }
 .testimonials-section::before {
     content: '';
@@ -351,6 +353,8 @@ img { max-width: 100%; height: auto; display: block; }
     background: var(--color-primary-brand);
     color: var(--color-text-light); 
     padding: calc(var(--spacing-unit) * 10) calc(var(--spacing-unit) * 4);
+    /* This section remains unique, overriding the "wallpaper" */
+    background-image: none;
 }
 .final-cta-section .section-title { color: var(--color-text-light); margin-bottom: calc(var(--spacing-unit) * 3); }
 .final-cta-section .section-intro-text { color: rgba(255,255,255,0.85); font-size: 1.2rem; }
