@@ -92,8 +92,8 @@ img { max-width: 100%; height: auto; display: block; }
 #background-static { 
     position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; 
     background: url('austin.jpg') center top/cover no-repeat; 
-    /* INCREASED BRIGHTNESS/REDUCED DIMNESS AS REQUESTED */
-    filter: saturate(1) brightness(0.8) contrast(1.1);
+    /* Significantly adjusted filter to be less dim and less saturated */
+    filter: brightness(0.9) contrast(1.05); /* Minimal filter for better clarity */
 }
 #background-overlay { 
     /* Removed fixed blue overlay */
@@ -130,7 +130,6 @@ img { max-width: 100%; height: auto; display: block; }
     padding: calc(var(--spacing-unit) * 1.5) 0; position: relative;
     transition: color var(--transition-fast); text-transform: uppercase;
 }
-/* Navigation Underline Fix - ENSURED visibility */
 .nav-link::after {
     content: '';
     position: absolute;
@@ -142,7 +141,6 @@ img { max-width: 100%; height: auto; display: block; }
     transition: width var(--transition-medium);
     display: block;
 }
-/* On hover/active, the underline expands */
 .nav-link:hover::after, .nav-link.active::after {
     width: 100%; 
 }
@@ -156,17 +154,27 @@ img { max-width: 100%; height: auto; display: block; }
     padding: calc(var(--spacing-unit) * 12) calc(var(--spacing-unit) * 4);
     border: none;
 }
-/* Applied consistent "wallpaper" to all standard content sections */
+/* Replaced pinstripe with a solid, slightly transparent color as a 'wallpaper' */
 .content-section:nth-child(odd), .content-section:nth-child(even) { 
-    background-color: var(--color-bg-light); /* Single base color for cleaner look with the wallpaper */
-    background-image: repeating-linear-gradient(
-        45deg,
-        rgba(0, 0, 0, 0.015),
-        rgba(0, 0, 0, 0.015) 20px,
-        transparent 20px,
-        transparent 40px
-    );
+    /* Base color is white, with a subtle blue tint as the 'wallpaper' */
+    background-color: var(--color-bg-light); 
+    background-image: none;
+    position: relative;
 }
+.content-section:nth-child(even) {
+    /* Slightly off-white for visual separation between sections */
+    background-color: var(--color-bg-off-white); 
+}
+.content-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    /* Solid transparent color 'wallpaper' over all content sections (excluding testimonial/final cta) */
+    background-color: rgba(var(--color-primary-brand-rgb), 0.03); /* Very light, subtle blue tint */
+    pointer-events: none; /* Allows clicks to go through to content */
+    z-index: -1;
+}
+
 .section-container { max-width: var(--content-max-width); margin: 0 auto; width: 100%; }
 .section-title { 
     text-align: center; margin-bottom: calc(var(--spacing-unit) * 4); 
@@ -191,11 +199,11 @@ img { max-width: 100%; height: auto; display: block; }
     display: flex; align-items: center; justify-content: center; text-align: center; 
     padding: calc(var(--spacing-unit) * 5); 
     color: var(--color-text-light); 
-    /* Removed all background properties to show the brightened fixed background (no blue line/border) */
+    /* Removed all background properties (no blue line/border) */
     background: transparent; 
 }
 .hero-content-box { 
-    /* REMOVED BORDER/BOX EFFECT */
+    /* Removed the box/border as requested */
     background-color: transparent; 
     padding: 0; 
     border-radius: 0;
@@ -267,7 +275,8 @@ img { max-width: 100%; height: auto; display: block; }
     padding-bottom: calc(var(--spacing-unit) * 10);
     position: relative;
     z-index: 1;
-    /* Overriding the generic wallpaper for this specific background */
+    /* Overriding the generic wallpaper */
+    background-color: transparent; 
     background-image: none; 
 }
 .testimonials-section::before {
@@ -345,7 +354,7 @@ img { max-width: 100%; height: auto; display: block; }
     background: var(--color-primary-brand);
     color: var(--color-text-light); 
     padding: calc(var(--spacing-unit) * 10) calc(var(--spacing-unit) * 4);
-    /* Overriding the generic wallpaper for this unique section */
+    /* Overriding the generic wallpaper */
     background-image: none;
 }
 .final-cta-section .section-title { color: var(--color-text-light); margin-bottom: calc(var(--spacing-unit) * 3); }
