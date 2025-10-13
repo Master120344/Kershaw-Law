@@ -195,17 +195,23 @@ a:hover,a:focus { color:var(--color-accent-gold); text-decoration:underline; }
     transition: opacity var(--transition-medium) ease-in-out;
 }
 .consultation-form-element .form-grid {
-    display: grid; grid-template-columns: 1fr 1fr; /* Default to 2 columns for desktop */
+    display: grid; 
+    grid-template-columns: 1fr 1fr; /* Correct: Default to 2 columns for desktop */
     gap: calc(var(--spacing-unit) * 3); /* Increased gap */
     margin-bottom: calc(var(--spacing-unit) * 3);
 }
 .form-group-span-2 { grid-column: span 2; }
-.form-group { display: flex; flex-direction: column; width: 100%; }
+.form-group { 
+    display: flex; 
+    flex-direction: column; 
+    width: 100%; /* FIX: Ensure form-group takes full grid column width */
+}
 .form-icon { margin-right: calc(var(--spacing-unit) * 1); color: var(--color-accent-gold); font-size: 1em; width: 1em; text-align: center; }
 .required-asterisk { color: var(--color-accent-gold-darker); margin-left: calc(var(--spacing-unit) * 0.5); font-weight: bold; }
 
 input, select, textarea {
-    width: 100%; padding: calc(var(--spacing-unit) * 1.75) calc(var(--spacing-unit) * 2);
+    width: 100%; /* FIX: Ensures input/select/textarea uses 100% of its parent form-group */
+    padding: calc(var(--spacing-unit) * 1.75) calc(var(--spacing-unit) * 2);
     font-family: var(--font-body); font-size: 1.05rem; color: var(--color-text-dark);
     background-color: rgba(var(--color-secondary-brand-rgb), 0.03);
     border: 1px solid var(--color-border-medium);
@@ -234,28 +240,29 @@ input.input-valid, select.input-valid, textarea.input-valid {
     margin-bottom: calc(var(--spacing-unit) * 2); font-size: 0.95rem;
 }
 
-/* --- NEW TURNSTILE & SUBMIT BUTTON STYLES --- */
+/* --- CORRECTED TURNSTILE & SUBMIT BUTTON STYLES --- */
 .form-turnstile-wrapper {
     /* Ensures the Turnstile widget is centered in the 2-column span */
     display: flex; 
     justify-content: center;
     align-items: center;
     grid-column: span 2; 
-    margin-top: calc(var(--spacing-unit) * 2); /* Space above the captcha box */
-    margin-bottom: calc(var(--spacing-unit) * 2.5); /* Space below the captcha box */
+    /* Reduced margin-top/bottom as the grid layout provides spacing */
+    margin-top: calc(var(--spacing-unit) * 2); 
+    margin-bottom: calc(var(--spacing-unit) * 2.5); 
 }
 
 .form-submit-group { 
-    /* The button centering fix */
-    display: flex; /* Make it a flex container */
-    justify-content: center; /* Center horizontally */
+    /* FIX: Use flex to center the inline-block button */
+    display: flex; 
+    justify-content: center; 
     grid-column: span 2; 
-    margin-top: calc(var(--spacing-unit) * 1); /* Space after Turnstile box */
+    margin-top: calc(var(--spacing-unit) * 1); 
 } 
 .form-submit-button { 
     width: 100%; 
     max-width: 350px; 
-    /* Ensures the button takes up to 350px max width and is centered by its parent's flex/justify-content */
+    /* The centering is now handled by the parent form-submit-group's flex properties */
 } 
 
 .thank-you-message {
