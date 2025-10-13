@@ -172,7 +172,7 @@ a:hover,a:focus { color:var(--color-accent-gold); text-decoration:underline; }
     max-width: 580px; margin: 0 auto calc(var(--spacing-unit) * 4) auto;
 }
 
-/* 7. GET STARTED PAGE SPECIFIC STYLES (UPDATED) */
+/* 7. GET STARTED PAGE SPECIFIC STYLES (FORM UPDATED) */
 .consultation-form-container {
     background-color: rgba(255,255,255,0.92);
     padding: calc(var(--spacing-unit) * 3) calc(var(--spacing-unit) * 2.5);
@@ -232,12 +232,30 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
     border: 1px solid var(--color-error-border);
     padding: calc(var(--spacing-unit) * 1.5); border-radius: var(--border-radius-small);
     margin-bottom: calc(var(--spacing-unit) * 2); font-size: 0.9rem;
+    text-align: left; /* Aligned left for error list */
 }
+.form-error-message ul {
+    list-style: disc;
+    padding-left: calc(var(--spacing-unit) * 4);
+    margin: calc(var(--spacing-unit) * 1) 0 0 0;
+}
+.form-error-message li {
+    margin-bottom: calc(var(--spacing-unit) * 0.5);
+}
+
 .form-submit-group { text-align: center; margin-top: calc(var(--spacing-unit) * 1.5); }
 .form-submit-button { width: 100%; max-width: 320px; }
 .form-submit-button:disabled {
     background: var(--color-text-medium) !important; box-shadow: none !important;
     cursor: wait !important; opacity: 0.7 !important; transform: none !important;
+}
+
+/* NEW: Turnstile Wrapper Styling */
+.form-turnstile-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: calc(var(--spacing-unit) * 4) 0; /* Increased padding for better separation */
 }
 
 .thank-you-message {
