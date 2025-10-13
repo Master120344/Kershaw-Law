@@ -110,11 +110,11 @@ img { max-width: 100%; height: auto; display: block; }
     position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; 
     background: url('austin.jpg') center/cover no-repeat; 
     /* Removed animation: subtleZoomInOutBg */
-    filter: saturate(0.7) brightness(0.75); 
+    filter: saturate(1.0) brightness(0.85); /* Increased saturation and brightness for clearer, less dim look */
 }
 #background-overlay { 
     position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; 
-    background: linear-gradient(180deg, rgba(var(--color-primary-brand-rgb), 0.15) 0%, rgba(var(--color-primary-brand-rgb), 0.35) 60%, rgba(var(--color-primary-brand-rgb), 0.55) 100%); 
+    background: linear-gradient(180deg, rgba(var(--color-primary-brand-rgb), 0.05) 0%, rgba(var(--color-primary-brand-rgb), 0.15) 60%, rgba(var(--color-primary-brand-rgb), 0.25) 100%); /* Reduced overlay opacity significantly */
 }
 
 /* 5. HEADER & DESKTOP NAVIGATION STYLES */
