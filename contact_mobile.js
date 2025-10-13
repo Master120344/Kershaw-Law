@@ -30,7 +30,6 @@ function initPageLoad() {
     const mainContent = document.getElementById('main-content');
 
     if (!splashLoader || !bodyElement || !mainContent) {
-        console.warn("Essential elements for page load not found on Contact (Mobile) page.");
         if (bodyElement) bodyElement.classList.add('loaded');
         if (mainContent) {
              mainContent.style.visibility = 'visible';
@@ -297,10 +296,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 input.dataset.touched = "true";
                 liveValidateInput(input);
             });
-            if (input.type === 'email' || input.tagName === 'TEXTAREA') {
+            if (input.type === 'email' || input.tagName === 'TEXTAREA' || input.tagName === 'SELECT') {
                 input.addEventListener('input', () => liveValidateInput(input));
             }
         });
+
+        function resetTurnstile() {
+            if (window.turnstile) {
+                const widgetElement = form.querySelector('.cf-turnstile');
+                if (widgetElement) {
+                     window.turnstile.reset(widgetElement);
+                }
+            }
+        }
 
         form.addEventListener('submit', async function(event) {
             event.preventDefault();
@@ -315,13 +323,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (input.classList.contains('input-error')) isFormFullyValid = false;
             });
 
+            // Check for Turnstile token
+            const turnstileToken = form.querySelector('input[name="cf-turnstile-response"]')?.value;
+
             if (!isFormFullyValid) {
                 formErrorMessageDiv.textContent = 'Please fill out all highlighted required fields correctly.';
                 formErrorMessageDiv.style.display = 'block';
                 const firstInvalid = form.querySelector('.input-error');
                 
-                // --- MODIFICATION START ---
-                // Scroll to the first invalid field for better user experience
+                // Scroll to the first invalid field
                 if (firstInvalid) {
                     const header = document.getElementById('site-header');
                     const headerOffset = header ? header.offsetHeight : (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-height-mobile').replace('px', '')) || 60);
@@ -333,26 +343,31 @@ document.addEventListener('DOMContentLoaded', () => {
                         behavior: 'smooth'
                     });
                     
-                    // Focus the element for accessibility. The smooth scroll will override the default jump.
                     firstInvalid.focus();
                 }
-                // --- MODIFICATION END ---
                 
+                delete form.dataset.submitted;
+                return;
+            }
+
+            if (!turnstileToken) {
+                formErrorMessageDiv.textContent = 'Please complete the CAPTCHA check.';
+                formErrorMessageDiv.style.display = 'block';
                 delete form.dataset.submitted;
                 return;
             }
 
             submitButton.disabled = true;
             submitButtonTextSpan.textContent = 'Sending...';
-            const originalButtonIconClass = submitButton.querySelector('i').className;
-            submitButton.querySelector('i').className = 'fas fa-spinner fa-spin';
 
+            // Prepare form data
             const formData = {
                 name: form.elements['name'].value,
                 email: form.elements['email'].value,
                 phone: form.elements['phone'].value,
                 service: form.elements['service'].value,
                 message: form.elements['message'].value,
+                'cf-turnstile-response': turnstileToken // Include the token
             };
 
             try {
@@ -380,19 +395,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     const headerOffset = header ? header.offsetHeight : (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-height-mobile').replace('px', '')) || 60);
                     const errorMsgTop = formErrorMessageDiv.getBoundingClientRect().top + window.pageYOffset - headerOffset - 15;
                     window.scrollTo({ top: errorMsgTop, behavior: 'smooth' });
+                    resetTurnstile();
                 }
             } catch (error) {
-                console.error('Form submission error (Mobile):', error);
                 formErrorMessageDiv.textContent = 'A network error occurred. Please check your connection and try again.';
                 formErrorMessageDiv.style.display = 'block';
                 const header = document.getElementById('site-header');
                 const headerOffset = header ? header.offsetHeight : (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-height-mobile').replace('px', '')) || 60);
                 const errorMsgTop = formErrorMessageDiv.getBoundingClientRect().top + window.pageYOffset - headerOffset - 15;
                 window.scrollTo({ top: errorMsgTop, behavior: 'smooth' });
+                resetTurnstile();
             } finally {
                 submitButton.disabled = false;
                 submitButtonTextSpan.textContent = 'Send Inquiry';
-                submitButton.querySelector('i').className = originalButtonIconClass;
                 delete form.dataset.submitted;
             }
         });
@@ -415,6 +430,7 @@ document.addEventListener('DOMContentLoaded', () => {
                  charCountDisplay.style.color = 'var(--color-text-medium)';
             }
             if (nameInput) nameInput.focus();
+            resetTurnstile();
         });
     }
     initContactForm();
