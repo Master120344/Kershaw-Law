@@ -17,56 +17,16 @@ function debounce(func, wait) {
     };
 }
 
-// --- Page Load & Initial Setup ---
-
-function initFooterYear() {
-    const yearSpan = document.getElementById('current-year');
-    if (yearSpan) {
-        yearSpan.textContent = new Date().getFullYear();
-    }
-}
-
-function initDesktopNavActiveTab() {
-    const desktopLinks = document.querySelectorAll('.desktop-nav .nav-link');
-    if (!desktopLinks.length) return;
+// --- Initial Page Load & Global Logic ---
+function initPageLoad() {
+    const splashLoader = document.getElementById('splash-loader');
+    const bodyElement = document.body;
     
-    let currentPage = window.location.pathname.split('/').pop() || 'index_desktop.html';
-
-    desktopLinks.forEach(link => {
-        const linkTarget = link.getAttribute('href');
-        link.classList.remove('active');
-        link.removeAttribute('aria-current');
-        // Simple check for the current file name
-        if (linkTarget === currentPage) {
-            link.classList.add('active');
-            link.setAttribute('aria-current', 'page');
-        }
-    });
+    if (splashLoader) splashLoader.classList.add('hidden'); 
+    bodyElement.classList.add('loaded'); 
 }
+window.addEventListener('load', initPageLoad);
 
-function initStickyHeaderBehavior() {
-    const header = document.getElementById('site-header');
-    if (!header) return;
-
-    let lastScrollTop = 0;
-    const delta = 10;
-    const headerHeight = header.offsetHeight;
-
-    const handleScroll = debounce(() => {
-        const nowST = window.pageYOffset || document.documentElement.scrollTop;
-        
-        if (Math.abs(lastScrollTop - nowST) <= delta) return;
-
-        if (nowST > lastScrollTop && nowST > headerHeight) {
-             header.classList.add('scrolled-down');
-        } else if (nowST + window.innerHeight < document.documentElement.scrollHeight) {
-             header.classList.remove('scrolled-down');
-        }
-        lastScrollTop = nowST <= 0 ? 0 : nowST;
-    }, 25);
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-}
 
 window.initScrollAnimations = function() {
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
@@ -83,44 +43,57 @@ window.initScrollAnimations = function() {
     animatedElements.forEach(el => observer.observe(el));
 };
 
-
-// --- Main DOM Ready and Page Load Listeners ---
-document.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('pageshow', (event) => {
+    document.getElementById('splash-loader')?.classList.add('hidden');
+    document.getElementById('page-transition-loader')?.classList.add('hidden');
+    document.body.classList.add('loaded'); 
     
-    initFooterYear();
-    initDesktopNavActiveTab();
-    initStickyHeaderBehavior();
-
-    const mainContent = document.getElementById('main-content');
-    
-    // 1. Page Transition Logic
-    function initPageTransitions() {
-        const transitionLoader = document.getElementById('page-transition-loader');
-        // Note: The loader element is not present in the new HTML, only keeping the logic for forward compatibility
-        if (!mainContent) return; 
-
-        document.querySelectorAll('a[href]:not([href^="#"]):not([href^="tel:"]):not([href^="mailto:"]):not([href^="javascript:"]):not([target="_blank"])')
-            .forEach(link => {
-                link.addEventListener('click', (e) => {
-                    const dest = new URL(link.href);
-                    if (dest.hostname !== window.location.hostname) return;
-                    if (dest.pathname === window.location.pathname && dest.search === window.location.search) {
-                        e.preventDefault(); return;
-                    }
-                    e.preventDefault();
-                    // Smooth transition out
-                    mainContent.style.opacity = '0'; 
-                    // if (transitionLoader) transitionLoader.classList.remove('hidden'); 
-                    setTimeout(() => { window.location.href = link.href; }, PAGE_TRANSITION_ANIMATION_MS + 50);
-                });
-            });
+    if (event.persisted) {
+        if (typeof window.initScrollAnimations === 'function') setTimeout(window.initScrollAnimations, 100);
     }
-    initPageTransitions();
+});
+
+
+// --- DOMContentLoaded Event Listener ---
+document.addEventListener('DOMContentLoaded', () => {
+    const mainContent = document.getElementById('main-content');
+    const header = document.getElementById('site-header');
+
+    // 1. Footer Year
+    function updateFooterYear() {
+        const yearSpan = document.getElementById('current-year');
+        if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+    }
+    updateFooterYear();
 
     // 2. Scroll Animations
     if (typeof window.initScrollAnimations === 'function') window.initScrollAnimations();
 
-    // 3. Phone Number Formatting
+    // 3. Sticky Header Behavior
+    function initStickyHeaderBehavior() {
+        if (!header) return;
+        let lastScrollTop = 0;
+        const delta = 10;
+        const headerHeight = header.offsetHeight;
+
+        const handleScroll = debounce(() => {
+            const nowST = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (Math.abs(lastScrollTop - nowST) <= delta) return;
+
+            if (nowST > lastScrollTop && nowST > headerHeight) {
+                 // header.classList.add('scrolled-down'); 
+            } else {
+                 // header.classList.remove('scrolled-down');
+            }
+            lastScrollTop = nowST <= 0 ? 0 : nowST;
+        }, 25);
+        window.addEventListener('scroll', handleScroll, { passive: true });
+    }
+    initStickyHeaderBehavior();
+
+
+    // 4. Phone Number Formatting
     function initPhoneFormatting() {
         const phoneInput = document.getElementById('phone');
         if (!phoneInput) return;
@@ -131,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     initPhoneFormatting();
 
-    // 4. Consultation Form Logic
+    // 5. Consultation Form Logic
     function initConsultationForm() {
         const form = document.getElementById('consultation-request-form');
         const formWrapper = document.getElementById('consultation-form-wrapper');
@@ -143,20 +116,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!form || !formWrapper || !thankYouDiv || !submitButton || !submitButtonText || !formErrorDiv || !resetButton) return;
         
-        // Include email and phone in required inputs for validation
         const formInputs = Array.from(form.querySelectorAll('input[required], select[required], textarea[required]'));
+
+        function getFieldLabel(input) {
+            // Helper to get the clean label text for error messages
+            const labelEl = form.querySelector(`label[for="${input.id}"]`);
+            if (!labelEl) return input.name;
+            let text = labelEl.textContent.replace('*', '').trim();
+            // Clean up any extra icon/spacing from the label
+            return text.replace(/Your |Company |Primary |Approx\. /g, '').trim();
+        }
 
         function validateInput(input) {
             input.classList.remove('input-valid', 'input-error');
             let isValid = true;
             const value = input.value.trim();
+            let errorMessage = '';
 
-            if (input.required && !value) isValid = false;
-            // Enhanced email validation
-            if (input.type === 'email' && value && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(value)) isValid = false;
-            // Enhanced phone validation (must match the pattern in the HTML and be complete)
-            if (input.type === 'tel' && input.required && value.length < 12) isValid = false;
-            if (input.type === 'number' && input.required && (isNaN(value) || Number(value) < (Number(input.min) || 0))) isValid = false;
+            if (input.required && (!value || value === '')) {
+                isValid = false;
+                errorMessage = `${getFieldLabel(input)} is required.`;
+            } else if (input.type === 'email' && value && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(value)) {
+                isValid = false;
+                errorMessage = `${getFieldLabel(input)} is invalid.`;
+            } else if (input.type === 'tel' && input.required && value.length < 12) {
+                isValid = false;
+                errorMessage = `${getFieldLabel(input)} format is incomplete (XXX-XXX-XXXX).`;
+            } else if (input.type === 'number' && input.required && (isNaN(value) || Number(value) < (Number(input.min) || 0))) {
+                isValid = false;
+                errorMessage = `${getFieldLabel(input)} must be a valid number greater than zero.`;
+            }
+            
+            input.dataset.validationError = errorMessage;
 
             if (input.dataset.touched === "true") {
                 if(isValid) {
@@ -182,19 +173,49 @@ document.addEventListener('DOMContentLoaded', () => {
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
             formInputs.forEach(input => input.dataset.touched = "true");
-            const isFormValid = formInputs.map(validateInput).every(v => v);
-            
-            // Check Turnstile token (if present)
+            const validationResults = formInputs.map(validateInput);
+            const isFormValid = validationResults.every(v => v);
+
             const turnstileResponse = form.querySelector('input[name="cf-turnstile-response"]')?.value;
             const isTurnstileValid = !!turnstileResponse;
+            
+            const errorMessages = [];
+            let firstErrorElement = null;
 
-            if (!isFormValid || !isTurnstileValid) {
-                formErrorDiv.textContent = 'Please fill out all highlighted required fields and complete the security check.';
+            // 1. Collect specific form errors
+            formInputs.forEach(input => {
+                if (input.dataset.validationError) {
+                    errorMessages.push(input.dataset.validationError);
+                    if (!firstErrorElement) firstErrorElement = input;
+                }
+            });
+
+            // 2. Check Turnstile error
+            if (!isTurnstileValid) {
+                errorMessages.push('Security Check (CAPTCHA) is required.');
+                if (!firstErrorElement) firstErrorElement = form.querySelector('.cf-turnstile');
+            }
+
+            if (errorMessages.length > 0) {
+                // Display detailed errors
+                const errorHtml = `
+                    <p>Please correct the following ${errorMessages.length} error(s) to continue:</p>
+                    <ul>
+                        ${errorMessages.map(msg => `<li>${msg}</li>`).join('')}
+                    </ul>
+                `;
+                formErrorDiv.innerHTML = errorHtml;
                 formErrorDiv.style.display = 'block';
-                form.querySelector('.input-error')?.focus() || form.querySelector('.cf-turnstile')?.scrollIntoView({ behavior: 'smooth' });
+
+                // Scroll to the first error and focus
+                if (firstErrorElement) {
+                    firstErrorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    firstErrorElement.focus();
+                }
                 return;
             }
             
+            // Proceed with submission if valid
             formErrorDiv.style.display = 'none';
             submitButton.disabled = true;
             submitButtonText.textContent = 'Sending...';
@@ -203,11 +224,9 @@ document.addEventListener('DOMContentLoaded', () => {
             icon.className = 'fas fa-spinner fa-spin';
 
             try {
-                // IMPORTANT: The actual fetch call to a server-side script is needed here. 
-                // Using a placeholder/simulation as requested.
+                // Simulation of successful response
                 await new Promise(resolve => setTimeout(resolve, 800)); 
                 const result = { status: 'success', message: 'Request received.' };
-                // End Simulation
 
                 if (result.status === 'success') {
                     formWrapper.style.display = 'none';
@@ -218,13 +237,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     throw new Error(result.message || 'An unknown error occurred.');
                 }
             } catch (error) {
-                formErrorDiv.textContent = error.message || 'A network error occurred. Please try again.';
+                formErrorDiv.innerHTML = `
+                    <p>A submission error occurred. Please try again or contact us directly:</p>
+                    <ul><li>${error.message || 'A network error occurred. Please try again.'}</li></ul>
+                `;
                 formErrorDiv.style.display = 'block';
             } finally {
                 submitButton.disabled = false;
                 submitButtonText.textContent = 'SUBMIT REQUEST';
                 icon.className = originalIconClass;
-                // Optional: Reset Turnstile on error
                 if (window.turnstile) {
                     const widget = form.querySelector('.cf-turnstile')?.getAttribute('data-sitekey');
                     if (widget) window.turnstile.reset(widget);
@@ -240,8 +261,9 @@ document.addEventListener('DOMContentLoaded', () => {
             formInputs.forEach(input => {
                 input.classList.remove('input-valid', 'input-error');
                 delete input.dataset.touched;
+                delete input.dataset.validationError;
             });
-            // Reset Turnstile on form reset
+            formErrorDiv.style.display = 'none';
             if (window.turnstile) {
                 const widget = form.querySelector('.cf-turnstile')?.getAttribute('data-sitekey');
                 if (widget) window.turnstile.reset(widget);
@@ -250,16 +272,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     initConsultationForm();
-});
-
-window.addEventListener('pageshow', (event) => {
-    // Hide any lingering loaders (though they are removed from HTML)
-    document.getElementById('splash-loader')?.classList.add('hidden');
-    document.getElementById('page-transition-loader')?.classList.add('hidden');
-
-    document.body.classList.add('loaded'); 
-    
-    if (event.persisted) {
-        if (typeof window.initScrollAnimations === 'function') setTimeout(window.initScrollAnimations, 100);
-    }
 });
