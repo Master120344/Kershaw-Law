@@ -241,15 +241,22 @@ input.input-valid, select.input-valid, textarea.input-valid {
     justify-content: center;
     align-items: center;
     grid-column: span 2; 
-    margin-bottom: calc(var(--spacing-unit) * 2.5); 
+    margin-top: calc(var(--spacing-unit) * 2); /* Space above the captcha box */
+    margin-bottom: calc(var(--spacing-unit) * 2.5); /* Space below the captcha box */
 }
 
 .form-submit-group { 
-    text-align: center; 
-    margin-top: calc(var(--spacing-unit) * 1); /* Reduced top margin to fit after Turnstile */
+    /* The button centering fix */
+    display: flex; /* Make it a flex container */
+    justify-content: center; /* Center horizontally */
     grid-column: span 2; 
+    margin-top: calc(var(--spacing-unit) * 1); /* Space after Turnstile box */
 } 
-.form-submit-button { width: 100%; max-width: 350px; } /* Slightly wider button for desktop */
+.form-submit-button { 
+    width: 100%; 
+    max-width: 350px; 
+    /* Ensures the button takes up to 350px max width and is centered by its parent's flex/justify-content */
+} 
 
 .thank-you-message {
     text-align: center; padding: calc(var(--spacing-unit) * 5) calc(var(--spacing-unit) * 3); /* Increased padding */
