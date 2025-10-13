@@ -75,13 +75,14 @@ html { scroll-behavior: smooth; font-size: 100%; -webkit-tap-highlight-color: tr
 body {
     font-family: var(--font-body); font-size: 1.1rem; line-height: 1.75; /* Slightly larger for desktop */
     color: var(--color-text-dark); background-color: var(--color-bg-off-white);
-    overflow-x: hidden; position: relative; opacity: 0;
+    overflow-x: hidden; position: relative; 
+    opacity: 0; /* Critical for preloader: starts hidden */
     transition: opacity 0.5s ease-in-out;
     padding-top: var(--header-height-desktop); /* Use desktop header height */
     padding-bottom: 0; /* Remove mobile tabs padding */
     display: flex; flex-direction: column; min-height: 100vh;
 }
-body.loaded { opacity: 1; }
+body.loaded { opacity: 1; } /* Critical for preloader: shows content when loaded */
 h1, h2, h3 { font-family: var(--font-headings); color: var(--color-primary-brand); font-weight: 700; line-height: 1.25; }
 h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); }
 h2 { font-size:clamp(2rem, 4vw, 3rem); margin-bottom:calc(var(--spacing-unit)*3); }
