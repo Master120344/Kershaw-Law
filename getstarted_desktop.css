@@ -6,13 +6,13 @@
 4. Background Styles
 5. Header & Desktop Navigation Styles
 6. Page Content Wrapper & Section Base
-7. Hero Section
+7. Hero Section (Empty on this page but kept for structure)
 8. Content Sections (About, Services, etc.)
-9. Testimonial Section (Google Review Box)
+9. Testimonial Section (Empty on this page but kept for structure)
 10. Call to Action (CTA) Sections & Buttons
 11. Footer Styles
 12. Animation & Utility Classes
-13. Consultation Form Styles (NEW)
+13. Consultation Form Styles (UPDATED)
 -------------------------------------------------- */
 
 /* 1. VARIABLES & GLOBAL RESETS */
@@ -39,7 +39,7 @@
     --color-bg-dark: var(--color-primary-brand);
     --color-bg-footer: #111827;
 
-    /* Loader Specific - Removed unused variables but kept placeholder */
+    /* Loader Specific */
     --color-loader-bg: var(--color-primary-brand);
     --color-loader-text: var(--color-text-light);
     --loader-display-duration: 0.1s;
@@ -78,7 +78,7 @@ body {
     background-color: var(--color-bg-off-white);
     overflow-x: hidden;
     position: relative;
-    opacity: 1; /* Removed initial opacity 0 and transition properties to fix white page */
+    opacity: 1;
     padding-top: var(--header-height-desktop);
     padding-bottom: 0;
     display: flex;
@@ -104,13 +104,12 @@ a:hover, a:focus { color: var(--color-accent-gold); text-decoration: underline; 
 img { max-width: 100%; height: auto; display: block; }
 
 /* 3. LOADER STYLES */
-/* Removed all loader styles and keyframes */
+
 
 /* 4. BACKGROUND STYLES */
 #background-static { 
     position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; 
     background: url('austin.jpg') center/cover no-repeat; 
-    /* Removed animation: subtleZoomInOutBg */
     filter: saturate(0.7) brightness(0.75); 
 }
 #background-overlay { 
@@ -126,9 +125,7 @@ img { max-width: 100%; height: auto; display: block; }
     box-shadow: 0 1px 5px var(--color-shadow-medium);
     border-bottom: 1px solid var(--color-border-subtle);
     display: flex; align-items: center; padding: 0 calc(var(--spacing-unit) * 4);
-    /* Removed transform transition for scroll-hide */
 }
-/* Removed .site-header.scrolled-down */
 .header-content { width: 100%; max-width: var(--content-max-width); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
 .firm-title-link { text-decoration: none !important; }
 .firm-title-link:hover .firm-name-header { color: var(--color-accent-gold); }
@@ -185,7 +182,6 @@ img { max-width: 100%; height: auto; display: block; }
 .service-list-detailed li { 
     font-size: 1.05rem; padding: calc(var(--spacing-unit) * 2) 0 calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 6); 
     position: relative; border-bottom: 1px dashed var(--color-border-subtle); 
-    /* Removed animation classes */
 }
 .service-list-detailed li:last-child { border-bottom: none; }
 .service-list-detailed li > i.fa-solid { position: absolute; left: calc(var(--spacing-unit)); top: 50%; transform: translateY(-50%); color: var(--color-accent-gold); font-size: 1.5em; width: calc(var(--spacing-unit) * 4); text-align: center; }
@@ -226,7 +222,6 @@ img { max-width: 100%; height: auto; display: block; }
 /* 10. CTA BUTTONS & SECTIONS */
 .cta-button {
     display: inline-flex; align-items: center; justify-content: center; 
-    /* Removed gap: calc(var(--spacing-unit) * 1.2); */
     padding: calc(var(--spacing-unit) * 1.75) calc(var(--spacing-unit) * 3.5);
     background: linear-gradient(145deg, var(--color-accent-gold), var(--color-accent-gold-darker));
     color: var(--color-text-on-gold) !important; text-decoration: none !important;
@@ -273,12 +268,12 @@ img { max-width: 100%; height: auto; display: block; }
 .footer-disclaimer { font-size: 0.75rem; opacity: 0.65; margin-top: var(--spacing-unit) * 2; max-width: 800px; margin-left: auto; margin-right: auto; }
 
 /* 12. ANIMATION & UTILITY CLASSES */
-/* Removed all animation utility classes */
 
 
-/* 13. Consultation Form Styles (getstarted_desktop.html) */
+/* 13. Consultation Form Styles (getstarted_desktop.html) - UPDATED FOR WIDTH AND LOOK */
 .consultation-form-container {
-    max-width: 900px;
+    max-width: 950px;
+    width: 90%;
     margin: 0 auto;
     background-color: var(--color-bg-light);
     padding: calc(var(--spacing-unit) * 5);
@@ -292,7 +287,7 @@ img { max-width: 100%; height: auto; display: block; }
 
 .form-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Two columns for desktop */
+    grid-template-columns: 1fr 1fr;
     gap: calc(var(--spacing-unit) * 3);
 }
 
@@ -319,6 +314,8 @@ label {
     margin-right: calc(var(--spacing-unit));
     color: var(--color-accent-gold);
     font-size: 1.1em;
+    width: 1.1em;
+    text-align: center;
 }
 
 .required-asterisk {
@@ -327,7 +324,7 @@ label {
 }
 
 input[type="text"], input[type="number"], input[type="email"], input[type="tel"], select, textarea {
-    padding: calc(var(--spacing-unit) * 1.5);
+    padding: calc(var(--spacing-unit) * 1.75);
     border: 1px solid var(--color-border-subtle);
     border-radius: var(--border-radius-small);
     font-family: var(--font-body);
@@ -336,6 +333,7 @@ input[type="text"], input[type="number"], input[type="email"], input[type="tel"]
     background-color: var(--color-bg-off-white);
     transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
     width: 100%;
+    appearance: none;
 }
 
 input:focus, select:focus, textarea:focus {
@@ -369,17 +367,17 @@ textarea {
     text-align: center;
 }
 
-/* Submit Button & Turnstile Centering Fix */
+/* Submit Button & Turnstile Centering Fix (Crucial) */
 .form-submit-group {
     grid-column: span 2; 
-    text-align: center; /* Centers the inline-flex button */
+    text-align: center;
     padding-top: calc(var(--spacing-unit) * 2); 
 }
 
 .form-turnstile-wrapper {
     grid-column: span 2; 
-    display: flex; /* Use flex to center the content */
-    justify-content: center; /* Center horizontally (for the Turnstile widget) */
+    display: flex; 
+    justify-content: center;
     align-items: center;
     padding: calc(var(--spacing-unit) * 2) 0;
 }
@@ -395,7 +393,7 @@ textarea {
     margin-bottom: calc(var(--spacing-unit) * 3);
 }
 .thank-you-title {
-    color: var(--color-primary-brand); /* Changed to primary brand for consistency */
+    color: var(--color-primary-brand);
     margin-bottom: calc(var(--spacing-unit) * 2);
 }
 .thank-you-message p {
