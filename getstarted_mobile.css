@@ -61,7 +61,7 @@
     --spacing-unit: 8px;
     --header-height-mobile: 60px;
     --tabs-height-mobile: 65px;
-    --content-max-width: 90vw;
+    --content-max-width: 92vw; /* Increased from 90vw for slightly more space */
     --content-max-width-capped: 720px;
     --border-radius-small: 5px;
     --border-radius-medium: 10px;
@@ -156,7 +156,7 @@ a:hover,a:focus { color:var(--color-accent-gold); text-decoration:underline; }
 
 /* 6. PAGE CONTENT WRAPPER & SECTION BASE */
 .page-content-wrapper { flex-grow: 1; width: 100%; position: relative; z-index: 1; }
-.content-section { width: 100%; padding: calc(var(--spacing-unit) * 6) calc(var(--spacing-unit) * 2); background-color: rgba(255, 255, 255, 0.88); }
+.content-section { width: 100%; padding: calc(var(--spacing-unit) * 7) calc(var(--spacing-unit) * 3); background-color: rgba(255, 255, 255, 0.88); } /* Increased padding for less tight fit */
 .section-container { max-width: var(--content-max-width-capped); margin: 0 auto; width: var(--content-max-width); }
 .section-title {
     font-family: var(--font-headings); font-size: clamp(1.8rem, 6vw, 2.6rem); text-align: center;
@@ -172,17 +172,17 @@ a:hover,a:focus { color:var(--color-accent-gold); text-decoration:underline; }
     max-width: 580px; margin: 0 auto calc(var(--spacing-unit) * 4) auto;
 }
 
-/* 7. GET STARTED PAGE SPECIFIC STYLES (FORM UPDATED) */
+/* 7. GET STARTED PAGE SPECIFIC STYLES (UPDATED) */
 .consultation-form-container {
     background-color: rgba(255,255,255,0.92);
-    padding: calc(var(--spacing-unit) * 3) calc(var(--spacing-unit) * 2.5);
+    padding: calc(var(--spacing-unit) * 4) calc(var(--spacing-unit) * 3); /* Increased padding for less tight fit */
     border-radius: var(--border-radius-medium);
     box-shadow: 0 4px 15px var(--color-shadow-medium);
     transition: opacity var(--transition-medium) ease-in-out;
 }
 .consultation-form-element .form-grid {
     display: grid; grid-template-columns: 1fr;
-    gap: calc(var(--spacing-unit) * 2);
+    gap: calc(var(--spacing-unit) * 2.5); /* Slightly increased gap */
     margin-bottom: calc(var(--spacing-unit) * 2.5);
 }
 .form-group { display: flex; flex-direction: column; width: 100%; }
@@ -232,30 +232,12 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
     border: 1px solid var(--color-error-border);
     padding: calc(var(--spacing-unit) * 1.5); border-radius: var(--border-radius-small);
     margin-bottom: calc(var(--spacing-unit) * 2); font-size: 0.9rem;
-    text-align: left; /* Aligned left for error list */
 }
-.form-error-message ul {
-    list-style: disc;
-    padding-left: calc(var(--spacing-unit) * 4);
-    margin: calc(var(--spacing-unit) * 1) 0 0 0;
-}
-.form-error-message li {
-    margin-bottom: calc(var(--spacing-unit) * 0.5);
-}
-
 .form-submit-group { text-align: center; margin-top: calc(var(--spacing-unit) * 1.5); }
 .form-submit-button { width: 100%; max-width: 320px; }
 .form-submit-button:disabled {
     background: var(--color-text-medium) !important; box-shadow: none !important;
     cursor: wait !important; opacity: 0.7 !important; transform: none !important;
-}
-
-/* NEW: Turnstile Wrapper Styling */
-.form-turnstile-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: calc(var(--spacing-unit) * 4) 0; /* Increased padding for better separation */
 }
 
 .thank-you-message {
@@ -274,7 +256,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 /* 8. CTA & SECONDARY BUTTONS */
 .cta-button {
     display: inline-flex; align-items: center; justify-content: center;
-    gap: calc(var(--spacing-unit) * 1.25);
+    /* Removed gap setting since the icon is removed */
     padding: calc(var(--spacing-unit) * 1.75) calc(var(--spacing-unit) * 4);
     background: linear-gradient(145deg, var(--color-accent-gold), var(--color-accent-gold-darker));
     color: var(--color-text-on-gold) !important; text-decoration: none !important;
