@@ -201,11 +201,6 @@ a:hover,a:focus { color:var(--color-accent-gold); text-decoration:underline; }
 }
 .form-group-span-2 { grid-column: span 2; }
 .form-group { display: flex; flex-direction: column; width: 100%; }
-.form-group label {
-    font-family: var(--font-headings); font-size: 1rem; font-weight: 600;
-    color: var(--color-primary-brand); margin-bottom: calc(var(--spacing-unit) * 1);
-    display: flex; align-items: center;
-}
 .form-icon { margin-right: calc(var(--spacing-unit) * 1); color: var(--color-accent-gold); font-size: 1em; width: 1em; text-align: center; }
 .required-asterisk { color: var(--color-accent-gold-darker); margin-left: calc(var(--spacing-unit) * 0.5); font-weight: bold; }
 
@@ -238,7 +233,22 @@ input.input-valid, select.input-valid, textarea.input-valid {
     padding: calc(var(--spacing-unit) * 1.5); border-radius: var(--border-radius-small);
     margin-bottom: calc(var(--spacing-unit) * 2); font-size: 0.95rem;
 }
-.form-submit-group { text-align: center; margin-top: calc(var(--spacing-unit) * 2.5); grid-column: span 2; } /* Ensured span 2 and center align */
+
+/* --- NEW TURNSTILE & SUBMIT BUTTON STYLES --- */
+.form-turnstile-wrapper {
+    /* Ensures the Turnstile widget is centered in the 2-column span */
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    grid-column: span 2; 
+    margin-bottom: calc(var(--spacing-unit) * 2.5); 
+}
+
+.form-submit-group { 
+    text-align: center; 
+    margin-top: calc(var(--spacing-unit) * 1); /* Reduced top margin to fit after Turnstile */
+    grid-column: span 2; 
+} 
 .form-submit-button { width: 100%; max-width: 350px; } /* Slightly wider button for desktop */
 
 .thank-you-message {
