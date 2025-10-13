@@ -1,5 +1,3 @@
-// getstarted_desktop.js
-
 // --- Strict Mode & Global Constants ---
 "use strict";
 const INITIAL_SPLASH_DURATION_MS = 100;
@@ -19,28 +17,56 @@ function debounce(func, wait) {
     };
 }
 
-// --- Initial Page Load & Global Logic (Simplified to fix white page issue) ---
-function initPageLoad() {
-    const splashLoader = document.getElementById('splash-loader');
-    const bodyElement = document.body;
-    
-    if (!splashLoader || !bodyElement) {
-        if(bodyElement) bodyElement.classList.add('loaded'); // Fallback in case loader is missing
-        return;
+// --- Page Load & Initial Setup ---
+
+function initFooterYear() {
+    const yearSpan = document.getElementById('current-year');
+    if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
     }
-
-    // Set the transition duration variable
-    document.documentElement.style.setProperty('--loader-display-duration', `${INITIAL_SPLASH_DURATION_MS / 1000}s`);
-
-    setTimeout(() => {
-        splashLoader.classList.add('hidden');
-        // CRITICAL FIX: Ensure body opacity changes to 1
-        bodyElement.classList.add('loaded'); 
-        
-        setActiveNavLink();
-    }, INITIAL_SPLASH_DURATION_MS);
 }
-window.addEventListener('load', initPageLoad);
+
+function initDesktopNavActiveTab() {
+    const desktopLinks = document.querySelectorAll('.desktop-nav .nav-link');
+    if (!desktopLinks.length) return;
+    
+    let currentPage = window.location.pathname.split('/').pop() || 'index_desktop.html';
+
+    desktopLinks.forEach(link => {
+        const linkTarget = link.getAttribute('href');
+        link.classList.remove('active');
+        link.removeAttribute('aria-current');
+        // Simple check for the current file name
+        if (linkTarget === currentPage) {
+            link.classList.add('active');
+            link.setAttribute('aria-current', 'page');
+        }
+    });
+}
+
+function initStickyHeaderBehavior() {
+    const header = document.getElementById('site-header');
+    if (!header) return;
+
+    let lastScrollTop = 0;
+    const delta = 10;
+    const headerHeight = header.offsetHeight;
+
+    const handleScroll = debounce(() => {
+        const nowST = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (Math.abs(lastScrollTop - nowST) <= delta) return;
+
+        if (nowST > lastScrollTop && nowST > headerHeight) {
+             header.classList.add('scrolled-down');
+        } else if (nowST + window.innerHeight < document.documentElement.scrollHeight) {
+             header.classList.remove('scrolled-down');
+        }
+        lastScrollTop = nowST <= 0 ? 0 : nowST;
+    }, 25);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+}
 
 window.initScrollAnimations = function() {
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
@@ -57,37 +83,22 @@ window.initScrollAnimations = function() {
     animatedElements.forEach(el => observer.observe(el));
 };
 
-window.addEventListener('pageshow', (event) => {
-    document.getElementById('splash-loader')?.classList.add('hidden');
-    document.getElementById('page-transition-loader')?.classList.add('hidden');
 
-    // Ensure the body is visible immediately on any page navigation
-    document.body.classList.add('loaded'); 
-    
-    if (event.persisted) {
-        // Only re-init animations if served from back/forward cache
-        if (typeof window.initScrollAnimations === 'function') setTimeout(window.initScrollAnimations, 100);
-    }
-});
-
-// --- Desktop Specific Nav Logic ---
-function setActiveNavLink() {
-    const links = document.querySelectorAll('.desktop-nav .nav-link');
-    links.forEach(link => {
-        // Remove 'active' class from all links as this is a utility page
-        link.classList.remove('active');
-        link.removeAttribute('aria-current');
-    });
-}
-
-// --- DOMContentLoaded Event Listener ---
+// --- Main DOM Ready and Page Load Listeners ---
 document.addEventListener('DOMContentLoaded', () => {
-    const mainContent = document.getElementById('main-content');
+    
+    initFooterYear();
+    initDesktopNavActiveTab();
+    initStickyHeaderBehavior();
 
+    const mainContent = document.getElementById('main-content');
+    
     // 1. Page Transition Logic
     function initPageTransitions() {
         const transitionLoader = document.getElementById('page-transition-loader');
-        if (!transitionLoader || !mainContent) return;
+        // Note: The loader element is not present in the new HTML, only keeping the logic for forward compatibility
+        if (!mainContent) return; 
+
         document.querySelectorAll('a[href]:not([href^="#"]):not([href^="tel:"]):not([href^="mailto:"]):not([href^="javascript:"]):not([target="_blank"])')
             .forEach(link => {
                 link.addEventListener('click', (e) => {
@@ -99,43 +110,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     e.preventDefault();
                     // Smooth transition out
                     mainContent.style.opacity = '0'; 
-                    transitionLoader.classList.remove('hidden');
+                    // if (transitionLoader) transitionLoader.classList.remove('hidden'); 
                     setTimeout(() => { window.location.href = link.href; }, PAGE_TRANSITION_ANIMATION_MS + 50);
                 });
             });
     }
     initPageTransitions();
 
-    // 2. Footer Year
-    function updateFooterYear() {
-        const yearSpan = document.getElementById('current-year');
-        if (yearSpan) yearSpan.textContent = new Date().getFullYear();
-    }
-    updateFooterYear();
-
-    // 3. Scroll Animations
+    // 2. Scroll Animations
     if (typeof window.initScrollAnimations === 'function') window.initScrollAnimations();
 
-    // 4. Sticky Header Behavior
-    function initStickyHeaderBehavior() {
-        const header = document.getElementById('site-header');
-        if (!header) return;
-        let lastScrollTop = 0;
-        const headerHeight = header.offsetHeight;
-        const handleScroll = debounce(() => {
-            let st = window.pageYOffset || document.documentElement.scrollTop;
-            if (st > lastScrollTop && st > headerHeight) {
-                header.classList.add('scrolled-down');
-            } else if (st + window.innerHeight < document.documentElement.scrollHeight) {
-                header.classList.remove('scrolled-down');
-            }
-            lastScrollTop = st <= 0 ? 0 : st;
-        }, 100);
-        window.addEventListener('scroll', handleScroll, { passive: true });
-    }
-    initStickyHeaderBehavior();
-
-    // 5. Phone Number Formatting
+    // 3. Phone Number Formatting
     function initPhoneFormatting() {
         const phoneInput = document.getElementById('phone');
         if (!phoneInput) return;
@@ -146,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     initPhoneFormatting();
 
-    // 6. Consultation Form Logic
+    // 4. Consultation Form Logic
     function initConsultationForm() {
         const form = document.getElementById('consultation-request-form');
         const formWrapper = document.getElementById('consultation-form-wrapper');
@@ -158,6 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!form || !formWrapper || !thankYouDiv || !submitButton || !submitButtonText || !formErrorDiv || !resetButton) return;
         
+        // Include email and phone in required inputs for validation
         const formInputs = Array.from(form.querySelectorAll('input[required], select[required], textarea[required]'));
 
         function validateInput(input) {
@@ -166,7 +152,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const value = input.value.trim();
 
             if (input.required && !value) isValid = false;
-            if (input.type === 'email' && value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) isValid = false;
+            // Enhanced email validation
+            if (input.type === 'email' && value && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(value)) isValid = false;
+            // Enhanced phone validation (must match the pattern in the HTML and be complete)
             if (input.type === 'tel' && input.required && value.length < 12) isValid = false;
             if (input.type === 'number' && input.required && (isNaN(value) || Number(value) < (Number(input.min) || 0))) isValid = false;
 
@@ -195,11 +183,15 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             formInputs.forEach(input => input.dataset.touched = "true");
             const isFormValid = formInputs.map(validateInput).every(v => v);
+            
+            // Check Turnstile token (if present)
+            const turnstileResponse = form.querySelector('input[name="cf-turnstile-response"]')?.value;
+            const isTurnstileValid = !!turnstileResponse;
 
-            if (!isFormValid) {
-                formErrorDiv.textContent = 'Please fill out all highlighted required fields correctly.';
+            if (!isFormValid || !isTurnstileValid) {
+                formErrorDiv.textContent = 'Please fill out all highlighted required fields and complete the security check.';
                 formErrorDiv.style.display = 'block';
-                form.querySelector('.input-error')?.focus();
+                form.querySelector('.input-error')?.focus() || form.querySelector('.cf-turnstile')?.scrollIntoView({ behavior: 'smooth' });
                 return;
             }
             
@@ -211,7 +203,8 @@ document.addEventListener('DOMContentLoaded', () => {
             icon.className = 'fas fa-spinner fa-spin';
 
             try {
-                // Simulation of successful response
+                // IMPORTANT: The actual fetch call to a server-side script is needed here. 
+                // Using a placeholder/simulation as requested.
                 await new Promise(resolve => setTimeout(resolve, 800)); 
                 const result = { status: 'success', message: 'Request received.' };
                 // End Simulation
@@ -220,10 +213,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     formWrapper.style.display = 'none';
                     thankYouDiv.style.display = 'block';
                     thankYouDiv.classList.add('visible');
-                    // Focus on the thank you message for accessibility
                     thankYouDiv.focus(); 
                 } else {
-                    // For simulation, we assume success, but this is the real error handler
                     throw new Error(result.message || 'An unknown error occurred.');
                 }
             } catch (error) {
@@ -231,8 +222,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 formErrorDiv.style.display = 'block';
             } finally {
                 submitButton.disabled = false;
-                submitButtonText.textContent = 'Submit Request';
+                submitButtonText.textContent = 'SUBMIT REQUEST';
                 icon.className = originalIconClass;
+                // Optional: Reset Turnstile on error
+                if (window.turnstile) {
+                    const widget = form.querySelector('.cf-turnstile')?.getAttribute('data-sitekey');
+                    if (widget) window.turnstile.reset(widget);
+                }
             }
         });
 
@@ -245,8 +241,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 input.classList.remove('input-valid', 'input-error');
                 delete input.dataset.touched;
             });
+            // Reset Turnstile on form reset
+            if (window.turnstile) {
+                const widget = form.querySelector('.cf-turnstile')?.getAttribute('data-sitekey');
+                if (widget) window.turnstile.reset(widget);
+            }
             form.querySelector('input, select, textarea')?.focus();
         });
     }
     initConsultationForm();
+});
+
+window.addEventListener('pageshow', (event) => {
+    // Hide any lingering loaders (though they are removed from HTML)
+    document.getElementById('splash-loader')?.classList.add('hidden');
+    document.getElementById('page-transition-loader')?.classList.add('hidden');
+
+    document.body.classList.add('loaded'); 
+    
+    if (event.persisted) {
+        if (typeof window.initScrollAnimations === 'function') setTimeout(window.initScrollAnimations, 100);
+    }
 });
