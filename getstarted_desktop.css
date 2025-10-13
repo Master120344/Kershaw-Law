@@ -196,21 +196,22 @@ a:hover,a:focus { color:var(--color-accent-gold); text-decoration:underline; }
 }
 .consultation-form-element .form-grid {
     display: grid; 
-    grid-template-columns: 1fr 1fr; /* Correct: Default to 2 columns for desktop */
-    gap: calc(var(--spacing-unit) * 3); /* Increased gap */
+    grid-template-columns: 1fr 1fr; 
+    gap: calc(var(--spacing-unit) * 3); 
     margin-bottom: calc(var(--spacing-unit) * 3);
 }
 .form-group-span-2 { grid-column: span 2; }
+
+/* *** FIX START: Ensure form elements correctly fill their grid columns *** */
 .form-group { 
     display: flex; 
     flex-direction: column; 
-    width: 100%; /* FIX: Ensure form-group takes full grid column width */
+    width: 100%; 
+    /* The form-group is already 100% of the grid cell, no fix needed here. */
 }
-.form-icon { margin-right: calc(var(--spacing-unit) * 1); color: var(--color-accent-gold); font-size: 1em; width: 1em; text-align: center; }
-.required-asterisk { color: var(--color-accent-gold-darker); margin-left: calc(var(--spacing-unit) * 0.5); font-weight: bold; }
-
 input, select, textarea {
-    width: 100%; /* FIX: Ensures input/select/textarea uses 100% of its parent form-group */
+    /* Critical Fix: Ensure inputs fully stretch across their parent form-group */
+    width: 100% !important; 
     padding: calc(var(--spacing-unit) * 1.75) calc(var(--spacing-unit) * 2);
     font-family: var(--font-body); font-size: 1.05rem; color: var(--color-text-dark);
     background-color: rgba(var(--color-secondary-brand-rgb), 0.03);
@@ -218,6 +219,8 @@ input, select, textarea {
     border-radius: var(--border-radius-small);
     transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
+/* *** FIX END *** */
+
 input:focus, select:focus, textarea:focus {
     outline: none; border-color: var(--color-accent-gold);
     box-shadow: 0 0 0 4px rgba(var(--color-accent-gold-rgb), 0.25);
@@ -247,7 +250,6 @@ input.input-valid, select.input-valid, textarea.input-valid {
     justify-content: center;
     align-items: center;
     grid-column: span 2; 
-    /* Reduced margin-top/bottom as the grid layout provides spacing */
     margin-top: calc(var(--spacing-unit) * 2); 
     margin-bottom: calc(var(--spacing-unit) * 2.5); 
 }
@@ -262,7 +264,6 @@ input.input-valid, select.input-valid, textarea.input-valid {
 .form-submit-button { 
     width: 100%; 
     max-width: 350px; 
-    /* The centering is now handled by the parent form-submit-group's flex properties */
 } 
 
 .thank-you-message {
