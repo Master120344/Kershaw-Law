@@ -44,6 +44,7 @@
                 </p>
 
                 <div class="consultation-form-container animate-on-scroll fade-in-up" data-animation-delay="200" id="consultation-form-wrapper">
+                    <div id="form-error-message" class="form-error-message" style="display: none;"></div>
                     <form id="consultation-request-form" class="consultation-form-element" novalidate>
                         <div class="form-grid">
                             <div class="form-group">
@@ -102,8 +103,16 @@
                                 </select>
                             </div>
                         </div>
-                        
-                        <div id="form-error-message" class="form-error-message" style="display: none;"></div>
+
+                        <!-- NEW: Cloudflare Turnstile (Span 2 columns) -->
+                        <div class="form-turnstile-wrapper form-group-span-2">
+                             <div 
+                                class="cf-turnstile" 
+                                data-sitekey="0x4AAAAAABrX-WzgbEapYbxH"
+                                data-theme="light"
+                                data-size="normal"
+                            ></div>
+                        </div>
 
                         <div class="form-group form-submit-group">
                             <button type="submit" class="cta-button form-submit-button" id="consultation-submit-button">
@@ -159,6 +168,12 @@
         </div>
     </footer>
 
+    <!-- Cloudflare Turnstile Script -->
+    <script 
+      src="https://challenges.cloudflare.com/turnstile/v0/api.js" 
+      async 
+      defer
+    ></script>
     <script src="getstarted_mobile.js" defer></script>
 </body>
 </html>
