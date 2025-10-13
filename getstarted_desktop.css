@@ -49,6 +49,17 @@
     --color-shadow-soft: rgba(26, 43, 72, 0.05);
     --color-shadow-medium: rgba(26, 43, 72, 0.1);
 
+    /* Typography */
+    --font-headings: 'Cinzel', serif;
+    --font-body: 'EB Garamond', serif;
+
+    /* Spacing & Sizing */
+    --spacing-unit: 8px;
+    --header-height-desktop: 70px;
+    --content-max-width: 1140px;
+    --border-radius-small: 5px;
+    --border-radius-medium: 8px;
+
     /* Transitions */
     --transition-fast: 0.2s ease-in-out;
     --transition-medium: 0.3s ease-in-out;
@@ -259,7 +270,7 @@ img { max-width: 100%; height: auto; display: block; }
 /* 12. ANIMATION & UTILITY CLASSES */
 
 
-/* 13. Consultation Form Styles (getstarted_desktop.html) - FINAL UPDATES */
+/* 13. Consultation Form Styles (getstarted_desktop.html) - UPDATED FOR WIDTH AND LOOK */
 .consultation-form-container {
     max-width: 950px;
     width: 90%;
@@ -353,17 +364,8 @@ textarea {
     margin-bottom: calc(var(--spacing-unit) * 3);
     font-weight: 500;
     border: 1px solid #cc0000;
-    text-align: left; /* Changed to left for list display */
+    text-align: center;
 }
-.form-error-message ul {
-    list-style: disc;
-    padding-left: calc(var(--spacing-unit) * 4);
-    margin: 0;
-}
-.form-error-message li {
-    margin-bottom: calc(var(--spacing-unit) * 0.5);
-}
-
 
 /* Submit Button & Turnstile Centering Fix (Crucial) */
 .form-submit-group {
@@ -372,13 +374,12 @@ textarea {
     padding-top: calc(var(--spacing-unit) * 2); 
 }
 
-/* Turnstile Nicer & Bigger */
 .form-turnstile-wrapper {
     grid-column: span 2; 
     display: flex; 
     justify-content: center;
     align-items: center;
-    padding: calc(var(--spacing-unit) * 4) 0; /* Increased vertical padding */
+    padding: calc(var(--spacing-unit) * 2) 0;
 }
 
 /* Thank You Message Styling */
