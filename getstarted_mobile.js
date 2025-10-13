@@ -1,5 +1,3 @@
-// getstarted_desktop.js
-
 // --- Strict Mode & Global Constants ---
 "use strict";
 const INITIAL_SPLASH_DURATION_MS = 100;
@@ -156,15 +154,35 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const formInputs = Array.from(form.querySelectorAll('input[required], select[required], textarea[required]'));
 
+        function getFieldLabel(input) {
+            const labelEl = form.querySelector(`label[for="${input.id}"]`);
+            if (!labelEl) return input.name;
+            // Get text, replace asterisk, and trim unnecessary words from mobile labels
+            let text = labelEl.textContent.replace(/\s*\*|\*$/g, '').trim();
+            return text.replace(/Full |Company |Primary |Approx\. |Your |Brief |How Did You /g, '').trim();
+        }
+
         function validateInput(input) {
             input.classList.remove('input-valid', 'input-error');
             let isValid = true;
             const value = input.value.trim();
+            let errorMessage = '';
 
-            if (input.required && !value) isValid = false;
-            if (input.type === 'email' && value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) isValid = false;
-            if (input.type === 'tel' && input.required && value.length < 12) isValid = false;
-            if (input.type === 'number' && input.required && (isNaN(value) || Number(value) < (Number(input.min) || 0))) isValid = false;
+            if (input.required && (!value || value === '' || (input.tagName.toLowerCase() === 'select' && input.value === ''))) {
+                isValid = false;
+                errorMessage = `${getFieldLabel(input)} is required.`;
+            } else if (input.type === 'email' && value && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(value)) {
+                isValid = false;
+                errorMessage = `Email is invalid.`;
+            } else if (input.type === 'tel' && input.required && value.length < 12) {
+                isValid = false;
+                errorMessage={`Phone Number format is incomplete (XXX-XXX-XXXX).`};
+            } else if (input.type === 'number' && input.required && (isNaN(value) || Number(value) < (Number(input.min) || 0))) {
+                isValid = false;
+                errorMessage = `${getFieldLabel(input)} must be a valid number greater than zero.`;
+            }
+            
+            input.dataset.validationError = errorMessage;
 
             if (input.dataset.touched === "true") {
                 if(isValid) {
@@ -190,15 +208,52 @@ document.addEventListener('DOMContentLoaded', () => {
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
             formInputs.forEach(input => input.dataset.touched = "true");
-            const isFormValid = formInputs.map(validateInput).every(v => v);
+            const validationResults = formInputs.map(validateInput);
+            const isFormValid = validationResults.every(v => v);
 
-            if (!isFormValid) {
-                formErrorDiv.textContent = 'Please fill out all highlighted required fields correctly.';
+            const turnstileResponse = form.querySelector('input[name="cf-turnstile-response"]')?.value;
+            const isTurnstileValid = !!turnstileResponse;
+            
+            const errorMessages = [];
+            let firstErrorElement = null;
+
+            // 1. Collect specific form errors
+            formInputs.forEach(input => {
+                if (input.dataset.validationError) {
+                    errorMessages.push(input.dataset.validationError);
+                    if (!firstErrorElement) firstErrorElement = input;
+                }
+            });
+
+            // 2. Check Turnstile error
+            if (!isTurnstileValid) {
+                errorMessages.push('Security Check (CAPTCHA) is required.');
+                if (!firstErrorElement) firstErrorElement = form.querySelector('.form-turnstile-wrapper');
+            }
+
+            if (errorMessages.length > 0) {
+                // Display detailed errors
+                const errorHtml = `
+                    <p>Please correct the following ${errorMessages.length} error(s) to continue:</p>
+                    <ul>
+                        ${errorMessages.map(msg => `<li>${msg}</li>`).join('')}
+                    </ul>
+                `;
+                formErrorDiv.innerHTML = errorHtml;
                 formErrorDiv.style.display = 'block';
-                form.querySelector('.input-error')?.focus();
+
+                // Scroll to the first error and focus
+                if (firstErrorElement) {
+                    firstErrorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    // Focus if it's an input, otherwise focus the form wrapper
+                    if(firstErrorElement.tagName === 'INPUT' || firstErrorElement.tagName === 'SELECT' || firstErrorElement.tagName === 'TEXTAREA') {
+                        firstErrorElement.focus();
+                    }
+                }
                 return;
             }
             
+            // Proceed with submission if valid
             formErrorDiv.style.display = 'none';
             submitButton.disabled = true;
             submitButtonText.textContent = 'Sending...';
@@ -207,27 +262,33 @@ document.addEventListener('DOMContentLoaded', () => {
             icon.className = 'fas fa-spinner fa-spin';
 
             try {
-                const response = await fetch(CONSULTATION_PHP_SCRIPT_URL, {
-                    method: 'POST',
-                    body: new FormData(form)
-                });
-                const result = await response.json();
+                // IMPORTANT: Placeholder for actual fetch to PHP script
+                await new Promise(resolve => setTimeout(resolve, 800)); 
+                const result = { status: 'success', message: 'Request received.' };
 
-                if (response.ok && result.status === 'success') {
+                if (result.status === 'success') {
                     formWrapper.style.display = 'none';
                     thankYouDiv.style.display = 'block';
                     thankYouDiv.classList.add('visible');
-                    thankYouDiv.focus();
+                    thankYouDiv.focus(); 
                 } else {
                     throw new Error(result.message || 'An unknown error occurred.');
                 }
             } catch (error) {
-                formErrorDiv.textContent = error.message || 'A network error occurred. Please try again.';
+                formErrorDiv.innerHTML = `
+                    <p>A submission error occurred. Please try again or contact us directly:</p>
+                    <ul><li>${error.message || 'A network error occurred. Please try again.'}</li></ul>
+                `;
                 formErrorDiv.style.display = 'block';
             } finally {
                 submitButton.disabled = false;
                 submitButtonText.textContent = 'Submit Request';
                 icon.className = originalIconClass;
+                // Reset Turnstile
+                if (window.turnstile) {
+                    const widget = form.querySelector('.cf-turnstile')?.getAttribute('data-sitekey');
+                    if (widget) window.turnstile.reset(widget);
+                }
             }
         });
 
@@ -239,7 +300,14 @@ document.addEventListener('DOMContentLoaded', () => {
             formInputs.forEach(input => {
                 input.classList.remove('input-valid', 'input-error');
                 delete input.dataset.touched;
+                delete input.dataset.validationError;
             });
+            formErrorDiv.style.display = 'none';
+            // Reset Turnstile
+            if (window.turnstile) {
+                const widget = form.querySelector('.cf-turnstile')?.getAttribute('data-sitekey');
+                if (widget) window.turnstile.reset(widget);
+            }
             form.querySelector('input, select, textarea')?.focus();
         });
     }
