@@ -73,7 +73,7 @@
     --spacing-unit: 8px;
     --header-height-mobile: 60px; /* Mobile header height */
     --nav-height-mobile: 65px;    /* Mobile bottom navigation height */
-    --content-max-width: 90vw; /* Max width for content on mobile */
+    --content-max-width: 95vw; /* Increased from 90vw for less tight fit */
     --border-radius-small: 5px;
     --border-radius-medium: 8px; /* Slightly smaller for mobile */
 
@@ -184,10 +184,7 @@ img { max-width: 100%; height: auto; display: block; }
     box-shadow: 0 1px 5px var(--color-shadow-medium);
     border-bottom: 1px solid var(--color-border-subtle);
     display: flex; align-items: center; padding: 0 calc(var(--spacing-unit) * 2);
-    /* --- MODIFICATION START --- */
-    /* Changed transform transition for a smoother, "calmer" effect */
     transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), background-color var(--transition-medium), box-shadow var(--transition-medium);
-    /* --- MODIFICATION END --- */
 }
 .site-header.scrolled-down {
     transform: translateY(-100%);
@@ -216,12 +213,12 @@ img { max-width: 100%; height: auto; display: block; }
 /* 6. PAGE CONTENT WRAPPER & SECTION BASE */
 .page-content-wrapper { flex-grow: 1; width: 100%; position: relative; z-index: 1; }
 .content-section {
-    width: 100%; padding: calc(var(--spacing-unit) * 5) calc(var(--spacing-unit) * 2); /* Mobile padding */
+    width: 100%; padding: calc(var(--spacing-unit) * 6) calc(var(--spacing-unit) * 3); /* Increased side padding for less tight fit */
     margin: 0 auto; position: relative;
 }
 .content-section, .content-section:nth-child(odd) { background-color: rgba(255, 255, 255, 0.88); } /* Slightly more opaque for mobile */
 .content-section:nth-child(even) { background-color: rgba(248, 249, 250, 0.9); }
-.section-container { max-width: var(--content-max-width); margin: 0 auto; width: 100%; } /* Use 100% of max-width */
+.section-container { max-width: 600px; margin: 0 auto; width: var(--content-max-width); } /* Cap max width slightly higher, use increased content-max-width variable */
 .section-title {
     font-family: var(--font-headings); font-size: clamp(1.6rem, 6.5vw, 2.2rem); /* Mobile section title */
     text-align: center; margin-bottom: calc(var(--spacing-unit) * 1.5);
@@ -245,13 +242,13 @@ img { max-width: 100%; height: auto; display: block; }
 .contact-info-grid {
     display: grid;
     grid-template-columns: 1fr; /* Single column for mobile */
-    gap: calc(var(--spacing-unit) * 2.5); /* Gap for mobile */
-    margin-bottom: calc(var(--spacing-unit) * 5);
+    gap: calc(var(--spacing-unit) * 3); /* Slightly increased gap for less tight fit */
+    margin-bottom: calc(var(--spacing-unit) * 6); /* Increased margin */
 }
 
 .contact-detail-item {
     background-color: rgba(var(--color-primary-brand-rgb), 0.03);
-    padding: calc(var(--spacing-unit) * 2.5); /* Mobile padding */
+    padding: calc(var(--spacing-unit) * 3); /* Increased padding */
     border-radius: var(--border-radius-medium);
     border: 1px solid rgba(var(--color-primary-brand-rgb), 0.1);
     text-align: center;
@@ -291,7 +288,7 @@ img { max-width: 100%; height: auto; display: block; }
 .contact-form-container {
     margin-top: calc(var(--spacing-unit) * 3);
     background-color: rgba(255,255,255,0.92);
-    padding: calc(var(--spacing-unit) * 3) calc(var(--spacing-unit) * 2.5);
+    padding: calc(var(--spacing-unit) * 4) calc(var(--spacing-unit) * 3); /* Increased padding */
     border-radius: var(--border-radius-medium);
     box-shadow: 0 3px 15px var(--color-shadow-medium);
 }
@@ -311,7 +308,7 @@ img { max-width: 100%; height: auto; display: block; }
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-bottom: calc(var(--spacing-unit) * 2); /* Spacing between form groups */
+    margin-bottom: calc(var(--spacing-unit) * 2.5); /* Increased spacing between form groups */
 }
 .form-group:last-child {
     margin-bottom: 0;
@@ -426,6 +423,8 @@ select:disabled {
 .form-submit-group {
     text-align: center;
     margin-top: calc(var(--spacing-unit) * 2.5);
+    display: flex; /* Added flex to center the button */
+    justify-content: center; /* Center the button */
 }
 
 .form-submit-button {
@@ -440,39 +439,33 @@ select:disabled {
     font-weight: 600;
     letter-spacing: 0.5px;
     color: var(--color-text-on-primary);
-    background-color: var(--color-secondary-brand);
+    background: linear-gradient(145deg, var(--color-accent-gold), var(--color-accent-gold-darker)); /* Using Gold for CTA */
     border: none;
     border-radius: var(--border-radius-medium);
-    box-shadow: 0 3px 10px rgba(var(--color-secondary-brand-rgb), 0.25), 0 1px 3px rgba(0,0,0,0.08);
+    box-shadow: 0 3px 10px rgba(var(--color-accent-gold-rgb), 0.25), 0 1px 3px rgba(0,0,0,0.08);
     cursor: pointer;
-    transition: background-color var(--transition-medium), color var(--transition-medium), transform var(--transition-fast), box-shadow var(--transition-fast), opacity var(--transition-fast);
+    transition: all var(--transition-medium); /* Simplified transition for better performance */
     text-transform: uppercase;
     line-height: 1.3;
+    /* Removed icon margin/styles */
+    gap: 0; 
 }
 .form-submit-button:disabled {
     opacity: 0.65;
     cursor: wait;
-    background-color: var(--color-text-medium);
-}
-.form-submit-button:disabled:active {
+    background: var(--color-text-medium);
+    box-shadow: none;
     transform: none;
-}
-.form-submit-button i {
-    margin-right: var(--spacing-unit);
-    font-size: 1em;
-    line-height: 1;
 }
 .form-submit-button:not(:disabled):active {
     transform: scale(0.98); /* Subtle press effect for mobile */
     box-shadow: 0 2px 6px rgba(var(--color-accent-gold-rgb), 0.25), 0 1px 2px rgba(0,0,0,0.1);
 }
-/* Hover is less relevant on mobile, but keep for desktop-like mobile browsers or if :focus-visible is used */
 .form-submit-button:not(:disabled):hover,
 .form-submit-button:not(:disabled):focus-visible {
-    background-color: var(--color-accent-gold);
-    color: var(--color-text-on-gold);
-    transform: translateY(-2px); /* Less pronounced than desktop */
-    box-shadow: 0 5px 12px rgba(var(--color-accent-gold-rgb), 0.3), 0 2px 4px rgba(0,0,0,0.12);
+    background: linear-gradient(145deg, var(--color-accent-gold-darker), var(--color-accent-gold));
+    transform: translateY(-1px); /* Less pronounced than desktop */
+    box-shadow: 0 5px 12px rgba(var(--color-accent-gold-rgb), 0.4), 0 2px 4px rgba(0,0,0,0.12);
     text-decoration: none;
     outline: none;
 }
@@ -615,5 +608,13 @@ select:disabled {
 .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0) translateX(0) scale(1); }
 
 /* 12. RESPONSIVE ADJUSTMENTS - Minimal, as this is mobile-first */
-/* Base styles are for typical mobile (e.g., 320px to 480px width) */
-/* Could add media queries for very small screens if needed, e.g., @media (max-width: 320px) {} */
+@media (min-width: 600px) {
+    /* Prevent the mobile sticky header logic from overriding larger screen layouts if this file is accidentally used there */
+    .contact-form-container {
+        padding: calc(var(--spacing-unit) * 5) calc(var(--spacing-unit) * 4);
+    }
+    .contact-info-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: calc(var(--spacing-unit) * 4);
+    }
+}
