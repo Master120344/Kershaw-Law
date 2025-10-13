@@ -19,28 +19,24 @@ function debounce(func, wait) {
     };
 }
 
-// --- Initial Page Load & Global Logic ---
+// --- Initial Page Load & Global Logic (Simplified to fix white page issue) ---
 function initPageLoad() {
     const splashLoader = document.getElementById('splash-loader');
     const bodyElement = document.body;
-    const mainContent = document.getElementById('main-content');
-
-    if (!splashLoader || !bodyElement || !mainContent) {
-        if(bodyElement) bodyElement.classList.add('loaded');
+    
+    if (!splashLoader || !bodyElement) {
+        if(bodyElement) bodyElement.classList.add('loaded'); // Fallback in case loader is missing
         return;
     }
 
-    mainContent.style.visibility = 'hidden';
-    mainContent.style.opacity = '0';
+    // Set the transition duration variable
     document.documentElement.style.setProperty('--loader-display-duration', `${INITIAL_SPLASH_DURATION_MS / 1000}s`);
 
     setTimeout(() => {
         splashLoader.classList.add('hidden');
-        mainContent.style.visibility = 'visible';
-        mainContent.style.transition = `opacity ${PAGE_TRANSITION_ANIMATION_MS / 1000}s ease-out`;
-        mainContent.style.opacity = '1';
-        bodyElement.classList.add('loaded');
-        // Manually set active class on nav link as this isn't a main navigation page
+        // CRITICAL FIX: Ensure body opacity changes to 1
+        bodyElement.classList.add('loaded'); 
+        
         setActiveNavLink();
     }, INITIAL_SPLASH_DURATION_MS);
 }
@@ -64,17 +60,12 @@ window.initScrollAnimations = function() {
 window.addEventListener('pageshow', (event) => {
     document.getElementById('splash-loader')?.classList.add('hidden');
     document.getElementById('page-transition-loader')?.classList.add('hidden');
+
+    // Ensure the body is visible immediately on any page navigation
+    document.body.classList.add('loaded'); 
+    
     if (event.persisted) {
-        document.body.classList.add('loaded');
-        const mainContent = document.getElementById('main-content');
-        if (mainContent) {
-            mainContent.style.transition = 'none';
-            mainContent.style.opacity = '1';
-            mainContent.style.visibility = 'visible';
-            setTimeout(() => {
-                mainContent.style.transition = `opacity ${PAGE_TRANSITION_ANIMATION_MS / 1000}s ease-out`;
-            }, 50);
-        }
+        // Only re-init animations if served from back/forward cache
         if (typeof window.initScrollAnimations === 'function') setTimeout(window.initScrollAnimations, 100);
     }
 });
@@ -83,7 +74,7 @@ window.addEventListener('pageshow', (event) => {
 function setActiveNavLink() {
     const links = document.querySelectorAll('.desktop-nav .nav-link');
     links.forEach(link => {
-        // Remove 'active' class from all links
+        // Remove 'active' class from all links as this is a utility page
         link.classList.remove('active');
         link.removeAttribute('aria-current');
     });
@@ -106,7 +97,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         e.preventDefault(); return;
                     }
                     e.preventDefault();
-                    mainContent.style.opacity = '0';
+                    // Smooth transition out
+                    mainContent.style.opacity = '0'; 
                     transitionLoader.classList.remove('hidden');
                     setTimeout(() => { window.location.href = link.href; }, PAGE_TRANSITION_ANIMATION_MS + 50);
                 });
@@ -219,15 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
             icon.className = 'fas fa-spinner fa-spin';
 
             try {
-                // In a real application, you'd replace this with your actual form submission endpoint
-                // For this exercise, we simulate a successful response after a small delay.
-                // const response = await fetch(CONSULTATION_PHP_SCRIPT_URL, { 
-                //     method: 'POST', 
-                //     body: new FormData(form) 
-                // });
-                // const result = await response.json();
-
-                // Simulation:
+                // Simulation of successful response
                 await new Promise(resolve => setTimeout(resolve, 800)); 
                 const result = { status: 'success', message: 'Request received.' };
                 // End Simulation
@@ -239,6 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Focus on the thank you message for accessibility
                     thankYouDiv.focus(); 
                 } else {
+                    // For simulation, we assume success, but this is the real error handler
                     throw new Error(result.message || 'An unknown error occurred.');
                 }
             } catch (error) {
