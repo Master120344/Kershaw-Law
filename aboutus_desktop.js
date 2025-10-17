@@ -1,6 +1,5 @@
 // aboutus_desktop.js
 
-// --- Utility Functions ---
 function debounce(func, wait, immediate) {
     let timeout;
     return function executedFunction() {
@@ -17,7 +16,6 @@ function debounce(func, wait, immediate) {
     };
 }
 
-// --- Page Load & Initial Animations (Splash only) ---
 function initPageLoad() {
     const splashLoader = document.getElementById('splash-loader');
     const bodyElement = document.body;
@@ -76,8 +74,6 @@ function initPageTransitions() {
     });
 }
 
-// Removed initScrollAnimations function
-
 function initFooterYear() {
     const yearSpan = document.getElementById('current-year');
     if (yearSpan) {
@@ -102,16 +98,11 @@ function initDesktopNavActiveTab() {
     });
 }
 
-// Removed initStickyHeaderBehavior function
-
-// --- Main DOM Ready and Page Load Listeners ---
 document.addEventListener('DOMContentLoaded', () => {
     initPageLoad();
     initPageTransitions();
-    // initScrollAnimations removed
     initFooterYear();
     initDesktopNavActiveTab();
-    // initStickyHeaderBehavior removed
 });
 
 window.addEventListener('pageshow', (event) => {
@@ -127,7 +118,6 @@ window.addEventListener('pageshow', (event) => {
     }
 
     if (event.persisted) {
-        // initScrollAnimations removed
         initDesktopNavActiveTab();
     }
 });
