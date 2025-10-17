@@ -1,10 +1,8 @@
-// --- Strict Mode & Global Constants ---
 "use strict";
 const INITIAL_SPLASH_DURATION_MS = 100;
 const PAGE_TRANSITION_ANIMATION_MS = 300;
 const CONSULTATION_PHP_SCRIPT_URL = 'send_consultation_request.php';
 
-// --- Utility Functions ---
 function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -17,7 +15,6 @@ function debounce(func, wait) {
     };
 }
 
-// --- Initial Page Load & Global Logic ---
 function initPageLoad() {
     const splashLoader = document.getElementById('splash-loader');
     const bodyElement = document.body;
@@ -53,23 +50,18 @@ window.addEventListener('pageshow', (event) => {
     }
 });
 
-
-// --- DOMContentLoaded Event Listener ---
 document.addEventListener('DOMContentLoaded', () => {
     const mainContent = document.getElementById('main-content');
     const header = document.getElementById('site-header');
 
-    // 1. Footer Year
     function updateFooterYear() {
         const yearSpan = document.getElementById('current-year');
         if (yearSpan) yearSpan.textContent = new Date().getFullYear();
     }
     updateFooterYear();
 
-    // 2. Scroll Animations
     if (typeof window.initScrollAnimations === 'function') window.initScrollAnimations();
 
-    // 3. Sticky Header Behavior
     function initStickyHeaderBehavior() {
         if (!header) return;
         let lastScrollTop = 0;
@@ -82,9 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (Math.abs(lastScrollTop - nowST) <= delta) return;
 
             if (nowST > lastScrollTop && nowST > headerHeight) {
-                 // header.classList.add('scrolled-down'); 
             } else {
-                 // header.classList.remove('scrolled-down');
             }
             lastScrollTop = nowST <= 0 ? 0 : nowST;
         }, 25);
@@ -92,8 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     initStickyHeaderBehavior();
 
-
-    // 4. Phone Number Formatting
     function initPhoneFormatting() {
         const phoneInput = document.getElementById('phone');
         if (!phoneInput) return;
@@ -104,7 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     initPhoneFormatting();
 
-    // 5. Consultation Form Logic
     function initConsultationForm() {
         const form = document.getElementById('consultation-request-form');
         const formWrapper = document.getElementById('consultation-form-wrapper');
@@ -119,11 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const formInputs = Array.from(form.querySelectorAll('input[required], select[required], textarea[required]'));
 
         function getFieldLabel(input) {
-            // Helper to get the clean label text for error messages
             const labelEl = form.querySelector(`label[for="${input.id}"]`);
             if (!labelEl) return input.name;
             let text = labelEl.textContent.replace('*', '').trim();
-            // Clean up any extra icon/spacing from the label
             return text.replace(/Your |Company |Primary |Approx\. /g, '').trim();
         }
 
@@ -182,7 +167,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const errorMessages = [];
             let firstErrorElement = null;
 
-            // 1. Collect specific form errors
             formInputs.forEach(input => {
                 if (input.dataset.validationError) {
                     errorMessages.push(input.dataset.validationError);
@@ -190,14 +174,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // 2. Check Turnstile error
             if (!isTurnstileValid) {
                 errorMessages.push('Security Check (CAPTCHA) is required.');
                 if (!firstErrorElement) firstErrorElement = form.querySelector('.cf-turnstile');
             }
 
             if (errorMessages.length > 0) {
-                // Display detailed errors
                 const errorHtml = `
                     <p>Please correct the following ${errorMessages.length} error(s) to continue:</p>
                     <ul>
@@ -207,7 +189,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 formErrorDiv.innerHTML = errorHtml;
                 formErrorDiv.style.display = 'block';
 
-                // Scroll to the first error and focus
                 if (firstErrorElement) {
                     firstErrorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     firstErrorElement.focus();
@@ -215,7 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             
-            // Proceed with submission if valid
             formErrorDiv.style.display = 'none';
             submitButton.disabled = true;
             submitButtonText.textContent = 'Sending...';
@@ -224,7 +204,6 @@ document.addEventListener('DOMContentLoaded', () => {
             icon.className = 'fas fa-spinner fa-spin';
 
             try {
-                // Simulation of successful response
                 await new Promise(resolve => setTimeout(resolve, 800)); 
                 const result = { status: 'success', message: 'Request received.' };
 
