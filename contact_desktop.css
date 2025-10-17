@@ -92,7 +92,6 @@ body {
     color: var(--color-text-dark); background-color: var(--color-bg-off-white);
     overflow-x: hidden; position: relative; opacity: 0;
     transition: opacity 0.5s ease-in-out;
-    padding-top: var(--header-height-desktop);
     display: flex; flex-direction: column; min-height: 100vh;
 }
 body.loaded { opacity: 1; }
@@ -144,16 +143,14 @@ a:hover, a:focus { color: var(--color-accent-gold); text-decoration: underline; 
 
 /* 5. HEADER & DESKTOP NAVIGATION STYLES */
 .site-header {
-    position: sticky; /* Changed from fixed to sticky to keep it stationary without hiding */
+    position: sticky;
     top: 0; left: 0; width: 100%; z-index: 900;
     height: var(--header-height-desktop); background-color: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
     box-shadow: 0 1px 5px var(--color-shadow-medium);
     border-bottom: 1px solid var(--color-border-subtle);
     display: flex; align-items: center; padding: 0 calc(var(--spacing-unit) * 4);
-    /* Removed transition and scrolled-down class logic */
 }
-/* .site-header.scrolled-down is no longer necessary */
 .header-content {
     width: 100%; max-width: var(--content-max-width); margin: 0 auto;
     display: flex; justify-content: space-between; align-items: center;
@@ -280,11 +277,16 @@ select {
 }
 
 .form-captcha-group {
-    /* New style for the CAPTCHA group to center the widget */
+    /* New style for the CAPTCHA group to center the widget and make it a black banner */
     display: flex;
     justify-content: center;
     margin-top: calc(var(--spacing-unit) * 3);
     margin-bottom: calc(var(--spacing-unit) * 1.5);
+    background-color: #000000; /* Black background as requested */
+    padding: calc(var(--spacing-unit) * 2); /* Added padding for a banner look */
+    width: 100%;
+    max-width: none;
+    border-radius: var(--border-radius-small);
 }
 
 .form-error-message {
@@ -327,7 +329,6 @@ select {
 /* 8. CTA BUTTONS */
 .cta-button {
     display: inline-flex; align-items: center; justify-content: center;
-    /* Removed gap setting because the icon is removed */
     padding: calc(var(--spacing-unit) * 1.75) calc(var(--spacing-unit) * 4);
     background: linear-gradient(145deg, var(--color-accent-gold), var(--color-accent-gold-darker));
     color: var(--color-text-on-gold) !important; text-decoration: none !important;
