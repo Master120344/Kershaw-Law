@@ -35,7 +35,7 @@ function initPageLoad() {
 }
 window.addEventListener('load', initPageLoad);
 
-// Scroll-triggered Animations logic removed
+// Scroll-triggered Animations logic removed as per request
 
 // Handle bfcache (Back-Forward Cache)
 window.addEventListener('pageshow', (event) => {
@@ -72,10 +72,16 @@ document.addEventListener('DOMContentLoaded', () => {
             link.addEventListener('click', (e) => {
                 const dest = link.getAttribute('href');
                 if (!dest) return;
-                const curPath = window.location.pathname.replace(/\/$/, "");
-                const destPathObj = new URL(dest, window.location.href);
-                const destPath = destPathObj.pathname.replace(/\/$/, "");
-                if (destPath === curPath && !destPathObj.hash) { e.preventDefault(); return; }
+                const curPath = window.location.pathname.split('/').pop() || 'index_desktop.html';
+                const destPath = link.getAttribute('href').split('/').pop() || 'index_desktop.html';
+
+                // Check if internal scroll to anchor on same page or link to the same page without hash
+                if (destPath === curPath && (dest.startsWith('#') || !destPath.includes('.'))) {
+                     // Allow internal scroll/same page click without full transition
+                } else if (destPath === curPath) {
+                    e.preventDefault();
+                    return;
+                }
 
                 e.preventDefault();
                 mainContent.style.opacity = '0';
@@ -116,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     initSmoothScroll();
 
-    // 5. Sticky Header Behavior (Removed logic to hide header on scroll down)
+    // 5. Sticky Header Behavior - Removed logic to hide header on scroll down
 
     // 6. Desktop Navigation Active State
     window.initDesktopNavActiveTab = function() {
