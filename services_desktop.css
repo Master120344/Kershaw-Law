@@ -10,7 +10,6 @@
 8. Services Content Sections
 9. Call to Action (CTA) Sections & Buttons
 10. Footer Styles
-11. Animation & Utility Classes
 -------------------------------------------------- */
 
 /* 1. VARIABLES & GLOBAL RESETS
@@ -123,13 +122,10 @@ a:hover, a:focus { color: var(--color-accent-gold); text-decoration: underline; 
     position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
     background: url('austin.jpg') center/cover no-repeat;
     animation: subtleZoomInOutBg 70s infinite alternate ease-in-out;
-    filter: saturate(0.7) brightness(0.75);
+    /* Removed filter for clearer image */
 }
 @keyframes subtleZoomInOutBg { 0% { transform: scale(1); } 100% { transform: scale(1.03); } }
-#background-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-    background: linear-gradient(180deg, rgba(var(--color-primary-brand-rgb), 0.15) 0%, rgba(var(--color-primary-brand-rgb), 0.35) 60%, rgba(var(--color-primary-brand-rgb), 0.55) 100%);
-}
+/* Removed #background-overlay styles entirely for clearer background */
 
 /* 5. HEADER & DESKTOP NAVIGATION STYLES
 -------------------------------------------------- */
@@ -140,9 +136,9 @@ a:hover, a:focus { color: var(--color-accent-gold); text-decoration: underline; 
     box-shadow: 0 1px 5px var(--color-shadow-medium);
     border-bottom: 1px solid var(--color-border-subtle);
     display: flex; align-items: center; padding: 0 calc(var(--spacing-unit) * 4);
-    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Removed transform transition for fixed header */
 }
-.site-header.scrolled-down { transform: translateY(-100%); }
+/* Removed .site-header.scrolled-down style to keep header fixed */
 .header-content {
     width: 100%; max-width: var(--content-max-width); margin: 0 auto;
     display: flex; justify-content: space-between; align-items: center;
@@ -197,18 +193,20 @@ a:hover, a:focus { color: var(--color-accent-gold); text-decoration: underline; 
 -------------------------------------------------- */
 .page-hero-banner {
     padding: calc(var(--spacing-unit) * 8) calc(var(--spacing-unit) * 4);
-    text-align: center; background-color: rgba(var(--color-primary-brand-rgb), 0.7);
+    text-align: center;
+    background-color: transparent; /* Changed to transparent for clear background image */
     color: var(--color-text-light);
 }
 .page-hero-content { max-width: var(--content-max-width); margin: 0 auto; }
 .page-hero-title {
     font-size: clamp(2.8rem, 5vw, 4rem); color: var(--color-text-light);
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    text-shadow: 1px 1px 6px rgba(0,0,0,0.6); /* Increased text shadow for contrast against clear background */
     margin-bottom: calc(var(--spacing-unit) * 2); font-weight: 700;
 }
 .page-hero-subtitle {
-    font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: rgba(255,255,255,0.9);
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: rgba(255,255,255,0.95);
     font-weight: 500; line-height: 1.6; margin: 0;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.5); /* Added text shadow for contrast against clear background */
 }
 
 /* 8. SERVICES CONTENT SECTIONS
@@ -305,17 +303,7 @@ a:hover, a:focus { color: var(--color-accent-gold); text-decoration: underline; 
 .footer-copyright { margin-bottom: var(--spacing-unit); font-size: 0.8rem; }
 .footer-disclaimer { font-size: 0.8rem; opacity: 0.6; margin-top: calc(var(--spacing-unit) * 2); max-width: 800px; margin-left:auto; margin-right: auto; }
 
-/* 11. ANIMATION & UTILITY CLASSES
--------------------------------------------------- */
+/* Removed animation and utility classes (Section 11) */
 *:focus-visible {
     outline: 2px solid var(--color-secondary-brand); outline-offset: 2px;
 }
-.animate-on-scroll {
-    opacity: 0; transition-property: opacity, transform;
-    transition-duration: 0.7s; transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.animate-on-scroll.fade-in-up { transform: translateY(50px); }
-.animate-on-scroll.fade-in-scale { transform: scale(0.95) translateY(20px); }
-.animate-on-scroll.slide-in-left { transform: translateX(-50px); }
-.animate-on-scroll.slide-in-right { transform: translateX(50px); }
-.animate-on-scroll.is-visible { opacity: 1; transform: translateY(0) translateX(0) scale(1); }
