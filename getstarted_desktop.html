@@ -48,7 +48,6 @@
                     <form id="consultation-request-form" class="consultation-form-element">
                         <div class="form-grid">
                             
-                            <!-- Row 1: Your Name & Company Name -->
                             <div class="form-group">
                                 <label for="full-name"><i class="fas fa-user form-icon"></i> Your Full Name <span class="required-asterisk">*</span></label>
                                 <input type="text" id="full-name" name="full-name" placeholder="e.g., John Doe" required>
@@ -58,7 +57,6 @@
                                 <input type="text" id="company-name" name="company-name" placeholder="e.g., ABC Landscaping Inc." required>
                             </div>
 
-                            <!-- Row 2: Email & Phone -->
                             <div class="form-group">
                                 <label for="email"><i class="fas fa-envelope form-icon"></i> Company Email <span class="required-asterisk">*</span></label>
                                 <input type="email" id="email" name="email" placeholder="email@company.com" required>
@@ -68,7 +66,6 @@
                                 <input type="tel" id="phone" name="phone" placeholder="888-555-1212" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required maxlength="12">
                             </div>
 
-                            <!-- Row 3: Position/Job Title & Approx. Workers Needed -->
                             <div class="form-group">
                                 <label for="position"><i class="fas fa-user-tie form-icon"></i> Your Position/Job Title <span class="required-asterisk">*</span></label>
                                 <input type="text" id="position" name="position" placeholder="e.g., Owner, HR Manager" required>
@@ -78,7 +75,6 @@
                                 <input type="number" id="workers" name="workers" placeholder="e.g., 15" min="1" required>
                             </div>
 
-                            <!-- Row 4: Primary Visa Type Needed (Span 2 columns) -->
                             <div class="form-group form-group-span-2">
                                 <label for="visa-type"><i class="fas fa-globe form-icon"></i> Primary Visa Type Needed <span class="required-asterisk">*</span></label>
                                 <select id="visa-type" name="visa-type" required>
@@ -89,19 +85,16 @@
                                 </select>
                             </div>
 
-                            <!-- Row 5: Brief Description of Job Duties (Span 2 columns) -->
                             <div class="form-group form-group-span-2">
                                 <label for="job-duties"><i class="fas fa-clipboard-list form-icon"></i> Brief Description of Job Duties <span class="required-asterisk">*</span></label>
                                 <textarea id="job-duties" name="job-duties" rows="4" placeholder="e.g., Harvesting crops, landscape construction, hotel housekeeping..." required></textarea>
                             </div>
 
-                            <!-- Row 6: Additional Details or Questions (Span 2 columns) -->
                             <div class="form-group form-group-span-2">
                                 <label for="details"><i class="fas fa-edit form-icon"></i> Additional Details or Questions</label>
                                 <textarea id="details" name="details" rows="4" placeholder="e.g., Peak season dates, previous H-2 experience..."></textarea>
                             </div>
 
-                            <!-- Row 7: How Did You Hear About Us? (Span 2 columns) -->
                             <div class="form-group form-group-span-2">
                                 <label for="source"><i class="fas fa-hands-helping form-icon"></i> How Did You Hear About Us? <span class="required-asterisk">*</span></label>
                                 <select id="source" name="source" required>
@@ -113,17 +106,15 @@
                                 </select>
                             </div>
 
-                            <!-- Row 8: Cloudflare Turnstile (Span 2 columns) -->
                             <div class="form-turnstile-wrapper form-group-span-2">
                                 <div 
                                     class="cf-turnstile" 
                                     data-sitekey="0x4AAAAAABrX-WzgbEapYbxH"
-                                    data-theme="light"
+                                    data-theme="dark"
                                     data-size="normal"
                                 ></div>
                             </div>
                             
-                            <!-- Row 9: Submit Button (Span 2 columns) - Centered -->
                             <div class="form-submit-group form-group-span-2"> 
                                 <button type="submit" id="consultation-submit-button" class="cta-button form-submit-button">
                                     <i class="fas fa-paper-plane"></i>
@@ -163,7 +154,6 @@
         </div>
     </footer>
 
-    <!-- Cloudflare Turnstile Script -->
     <script 
       src="https://challenges.cloudflare.com/turnstile/v0/api.js" 
       async 
