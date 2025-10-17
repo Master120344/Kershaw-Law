@@ -61,6 +61,7 @@ function initStickyHeaderBehavior() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('loaded');
     initFooterYear();
     initDesktopNavActiveTab();
     initStickyHeaderBehavior();
