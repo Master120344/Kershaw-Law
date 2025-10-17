@@ -1,23 +1,4 @@
-/* TABLE OF CONTENTS - DESKTOP VERSION
---------------------------------------------------
-1. Variables & Global Resets
-2. Body & Typography Base
-3. Loader Styles
-4. Background Styles
-5. Header & Desktop Navigation Styles
-6. Page Content Wrapper & Section Base
-7. Hero Section (Empty on this page but kept for structure)
-8. Content Sections (About, Services, etc.)
-9. Testimonial Section (Empty on this page but kept for structure)
-10. Call to Action (CTA) Sections & Buttons
-11. Footer Styles
-12. Animation & Utility Classes
-13. Consultation Form Styles (UPDATED)
--------------------------------------------------- */
-
-/* 1. VARIABLES & GLOBAL RESETS */
 :root {
-    /* Primary Palette */
     --color-primary-brand: #003366;
     --color-primary-brand-rgb: 0, 51, 102;
     --color-secondary-brand: #0A58A6;
@@ -25,42 +6,29 @@
     --color-accent-gold: #B08D57;
     --color-accent-gold-rgb: 176, 141, 87;
     --color-accent-gold-darker: #8c6d40;
-
-    /* Neutral Palette */
     --color-text-dark: #1a232f;
     --color-text-medium: #4a5568;
     --color-text-light: #f0f2f5;
     --color-text-on-gold: #FFFFFF;
     --color-text-on-primary: #FFFFFF;
-
     --color-bg-light: #FFFFFF;
     --color-bg-off-white: #f8f9fa;
     --color-bg-medium-grey: #e9ecef;
     --color-bg-dark: var(--color-primary-brand);
     --color-bg-footer: #111827;
-
-    /* Loader Specific */
     --color-loader-bg: var(--color-primary-brand);
     --color-loader-text: var(--color-text-light);
     --loader-display-duration: 0.1s;
-
-    /* UI Elements */
     --color-border-subtle: rgba(0, 0, 0, 0.08);
     --color-shadow-soft: rgba(26, 43, 72, 0.05);
     --color-shadow-medium: rgba(26, 43, 72, 0.1);
-
-    /* Typography */
     --font-headings: 'Cinzel', serif;
     --font-body: 'EB Garamond', serif;
-
-    /* Spacing & Sizing */
     --spacing-unit: 8px;
     --header-height-desktop: 70px;
     --content-max-width: 1140px;
     --border-radius-small: 5px;
     --border-radius-medium: 8px;
-
-    /* Transitions */
     --transition-fast: 0.2s ease-in-out;
     --transition-medium: 0.3s ease-in-out;
     --transition-slow: 0.4s ease-in-out;
@@ -69,7 +37,6 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; font-size: 100%; -webkit-tap-highlight-color: transparent; }
 
-/* 2. BODY & TYPOGRAPHY BASE */
 body {
     font-family: var(--font-body);
     font-size: 1.1rem;
@@ -103,10 +70,6 @@ a { color: var(--color-secondary-brand); text-decoration: none; }
 a:hover, a:focus { color: var(--color-accent-gold); text-decoration: underline; }
 img { max-width: 100%; height: auto; display: block; }
 
-/* 3. LOADER STYLES */
-
-
-/* 4. BACKGROUND STYLES */
 #background-static { 
     position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; 
     background: url('austin.jpg') center/cover no-repeat; 
@@ -117,7 +80,6 @@ img { max-width: 100%; height: auto; display: block; }
     background: linear-gradient(180deg, rgba(var(--color-primary-brand-rgb), 0.15) 0%, rgba(var(--color-primary-brand-rgb), 0.35) 60%, rgba(var(--color-primary-brand-rgb), 0.55) 100%); 
 }
 
-/* 5. HEADER & DESKTOP NAVIGATION STYLES */
 .site-header {
     position: fixed; top: 0; left: 0; width: 100%; z-index: 900;
     height: var(--header-height-desktop); background-color: rgba(255, 255, 255, 0.92);
@@ -152,7 +114,6 @@ img { max-width: 100%; height: auto; display: block; }
 .nav-link:hover, .nav-link.active { color: var(--color-accent-gold) !important; }
 .nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
 
-/* 6. PAGE CONTENT WRAPPER & SECTION BASE */
 .page-content-wrapper { flex-grow: 1; width: 100%; position: relative; z-index: 1; }
 .content-section { padding: calc(var(--spacing-unit) * 8) calc(var(--spacing-unit) * 4); }
 .content-section:nth-child(odd) { background-color: rgba(255, 255, 255, 0.88); }
@@ -163,7 +124,6 @@ img { max-width: 100%; height: auto; display: block; }
 .section-intro-text { font-size: 1.15rem; color: var(--color-text-medium); text-align: center; max-width: 800px; margin: 0 auto calc(var(--spacing-unit) * 5) auto; }
 .text-center { text-align: center; }
 
-/* 7. HERO SECTION */
 .hero-section { min-height: 70vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: calc(var(--spacing-unit) * 5); color: var(--color-text-light); }
 .hero-content-box { 
     background-color: transparent; 
@@ -176,7 +136,6 @@ img { max-width: 100%; height: auto; display: block; }
 .hero-subtitle { font-size: clamp(1.2rem, 3vw, 1.5rem); color: rgba(255,255,255,0.9); margin-bottom: calc(var(--spacing-unit) * 4); }
 .hero-cta { margin-top: calc(var(--spacing-unit) * 2); }
 
-/* 8. CONTENT SECTIONS (ABOUT, SERVICES) */
 .about-section .secondary-button, .services-overview-section .secondary-button { display: block; max-width: 280px; margin: calc(var(--spacing-unit) * 4) auto 0 auto; text-align: center; }
 .service-list-detailed { list-style: none; padding-left: 0; margin-top: calc(var(--spacing-unit) * 4); }
 .service-list-detailed li { 
@@ -187,7 +146,6 @@ img { max-width: 100%; height: auto; display: block; }
 .service-list-detailed li > i.fa-solid { position: absolute; left: calc(var(--spacing-unit)); top: 50%; transform: translateY(-50%); color: var(--color-accent-gold); font-size: 1.5em; width: calc(var(--spacing-unit) * 4); text-align: center; }
 .service-list-detailed strong { color: var(--color-primary-brand); font-weight: 600; font-size: 1.1em; display: block; margin-bottom: var(--spacing-unit); }
 
-/* 9. TESTIMONIALS (GOOGLE REVIEW BOX) */
 .testimonials-section { background-color: var(--color-bg-medium-grey) !important; }
 .google-reviews-callout {
     margin-top: calc(var(--spacing-unit) * 3);
@@ -219,7 +177,6 @@ img { max-width: 100%; height: auto; display: block; }
 .google-reviews-button:active { background-color: #b32d20; transform: translateY(0); }
 .google-reviews-button i.fab { font-size: 1.2em; }
 
-/* 10. CTA BUTTONS & SECTIONS */
 .cta-button {
     display: inline-flex; align-items: center; justify-content: center; 
     padding: calc(var(--spacing-unit) * 1.75) calc(var(--spacing-unit) * 3.5);
@@ -252,7 +209,6 @@ img { max-width: 100%; height: auto; display: block; }
 .final-cta-section .section-intro-text { color: rgba(255,255,255,0.92); }
 .final-cta-section .cta-button { margin-top: calc(var(--spacing-unit) * 3); }
 
-/* 11. FOOTER STYLES */
 .site-footer {
     background-color: var(--color-bg-footer); color: #b0bec5; text-align: center;
     padding: calc(var(--spacing-unit) * 5) calc(var(--spacing-unit) * 4);
@@ -267,10 +223,6 @@ img { max-width: 100%; height: auto; display: block; }
 .footer-copyright { margin-bottom: var(--spacing-unit); font-size: 0.8rem; }
 .footer-disclaimer { font-size: 0.75rem; opacity: 0.65; margin-top: var(--spacing-unit) * 2; max-width: 800px; margin-left: auto; margin-right: auto; }
 
-/* 12. ANIMATION & UTILITY CLASSES */
-
-
-/* 13. Consultation Form Styles (getstarted_desktop.html) - UPDATED FOR WIDTH AND LOOK */
 .consultation-form-container {
     max-width: 950px;
     width: 90%;
@@ -347,7 +299,6 @@ textarea {
     resize: vertical;
 }
 
-/* Form Validation Feedback */
 .input-error {
     border-color: #cc0000 !important;
     box-shadow: 0 0 0 2px rgba(204, 0, 0, 0.2) !important;
@@ -367,7 +318,6 @@ textarea {
     text-align: center;
 }
 
-/* Submit Button & Turnstile Centering Fix (Crucial) */
 .form-submit-group {
     grid-column: span 2; 
     text-align: center;
@@ -382,7 +332,6 @@ textarea {
     padding: calc(var(--spacing-unit) * 2) 0;
 }
 
-/* Thank You Message Styling */
 .thank-you-message {
     text-align: center;
     padding: calc(var(--spacing-unit) * 6);
