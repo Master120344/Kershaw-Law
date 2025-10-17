@@ -1,12 +1,8 @@
-// contact_desktop.js
-
-// --- Strict Mode & Global Constants ---
 "use strict";
 const INITIAL_SPLASH_DURATION_MS = 100;
 const PAGE_TRANSITION_ANIMATION_MS = 250;
-const PHP_SCRIPT_URL = 'send_email.php'; // URL for the PHP mailer script
+const PHP_SCRIPT_URL = 'send_email.php';
 
-// --- Utility Functions ---
 function debounce(func, wait, immediate) {
     let timeout;
     return function executedFunction() {
@@ -23,7 +19,6 @@ function debounce(func, wait, immediate) {
     };
 }
 
-// --- Initial Page Load & Splash Screen Logic ---
 function initPageLoad() {
     const splashLoader = document.getElementById('splash-loader');
     const bodyElement = document.body;
@@ -52,7 +47,6 @@ function initPageLoad() {
 }
 window.addEventListener('load', initPageLoad);
 
-// Scroll-triggered Animations
 window.initScrollAnimations = function() {
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
     if (!animatedElements.length || !('IntersectionObserver' in window)) return;
@@ -71,7 +65,6 @@ window.initScrollAnimations = function() {
     });
 };
 
-// Handle bfcache
 window.addEventListener('pageshow', (event) => {
     const pageTransitionLoader = document.getElementById('page-transition-loader');
     if (pageTransitionLoader) pageTransitionLoader.classList.add('hidden');
@@ -89,11 +82,9 @@ window.addEventListener('pageshow', (event) => {
     }
 });
 
-// --- DOMContentLoaded Event Listener ---
 document.addEventListener('DOMContentLoaded', () => {
     const mainContent = document.getElementById('main-content');
 
-    // 1. Page Transition Logic
     function initPageTransitions() {
         const transitionLoader = document.getElementById('page-transition-loader');
         if (!transitionLoader || !mainContent) return;
@@ -104,9 +95,9 @@ document.addEventListener('DOMContentLoaded', () => {
             link.addEventListener('click', (e) => {
                 const dest = link.getAttribute('href');
                 if (!dest) return;
-                const curPath = window.location.pathname.split('/').pop() || 'index_desktop.html';
+                const curPath = window.location.pathname.replace(/\/$/, "");
                 const destPathObj = new URL(dest, window.location.href);
-                const destPath = destPathObj.pathname.split('/').pop() || 'index_desktop.html';
+                const destPath = destPathObj.pathname.replace(/\/$/, "");
                 if (destPath === curPath && !destPathObj.hash) { e.preventDefault(); return; }
 
                 e.preventDefault();
@@ -118,17 +109,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     initPageTransitions();
 
-    // 2. Footer Year
     function updateFooterYear() {
-        const yearSpan = document.getElementById('current-year');
-        if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+        document.getElementById('current-year').textContent = new Date().getFullYear();
     }
     updateFooterYear();
 
-    // 3. Scroll Animations
     if (typeof window.initScrollAnimations === 'function') window.initScrollAnimations();
 
-    // 4. Smooth Scroll
     function initSmoothScroll() {
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -148,20 +135,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     initSmoothScroll();
 
-    // 5. Desktop Navigation Active State
-    window.initDesktopNavActiveTab = function() {
-        const desktopLinks = document.querySelectorAll('.desktop-nav .nav-link');
-        if (!desktopLinks.length) return;
-        let currentPage = window.location.pathname.split('/').pop() || 'index_desktop.html';
-        desktopLinks.forEach(link => {
-            const linkTarget = link.getAttribute('href');
-            link.classList.remove('active');
-            if (linkTarget === currentPage) link.classList.add('active');
-        });
-    }
-    window.initDesktopNavActiveTab();
-
-    // 6. Phone Number Formatting
     function initPhoneFormatting() {
         const phoneInput = document.getElementById('contact-phone');
         if (!phoneInput) return;
@@ -175,8 +148,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     initPhoneFormatting();
+
+    window.initDesktopNavActiveTab = function() {
+        const desktopLinks = document.querySelectorAll('.desktop-nav .nav-link');
+        if (!desktopLinks.length) return;
+        let currentPage = window.location.pathname.split('/').pop() || 'index_desktop.html';
+        desktopLinks.forEach(link => {
+            const linkTarget = link.getAttribute('href');
+            link.classList.remove('active');
+            if (linkTarget === currentPage) link.classList.add('active');
+        });
+    }
+    window.initDesktopNavActiveTab();
     
-    // 7. Contact Form Submission Handling & Live Validation
     function initContactForm() {
         const form = document.getElementById('contact-form');
         if (!form) { console.warn('Contact form not found.'); return; }
@@ -192,14 +176,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const messageTextarea = document.getElementById('contact-message');
         const charCountDisplay = document.getElementById('message-char-count');
         
-        // Character Count
         const maxLength = parseInt(messageTextarea.getAttribute('maxlength'), 10);
         messageTextarea.addEventListener('input', () => {
             const currentLength = messageTextarea.value.length;
             charCountDisplay.textContent = `${currentLength}/${maxLength}`;
         });
 
-        // Live Validation
         function liveValidateInput(input) {
             input.classList.remove('input-error', 'input-valid');
             let isValid = input.checkValidity();
@@ -216,15 +198,6 @@ document.addEventListener('DOMContentLoaded', () => {
             input.addEventListener('input', () => liveValidateInput(input));
         });
 
-        function resetTurnstile() {
-            if (window.turnstile) {
-                const widgetElement = form.querySelector('.cf-turnstile');
-                if (widgetElement) {
-                     window.turnstile.reset(widgetElement);
-                }
-            }
-        }
-
         form.addEventListener('submit', async function(event) {
             event.preventDefault();
             form.dataset.submitted = "true";
@@ -237,10 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!input.checkValidity()) isFormFullyValid = false;
             });
             if (messageTextarea.value.length > maxLength) isFormFullyValid = false;
-
-            // Check for Turnstile token
-            const turnstileToken = form.querySelector('input[name="cf-turnstile-response"]')?.value;
-
+            
             if (!isFormFullyValid) {
                 formErrorMessageDiv.textContent = 'Please fill out all highlighted required fields correctly.';
                 formErrorMessageDiv.style.display = 'block';
@@ -249,15 +219,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            if (!turnstileToken) {
-                formErrorMessageDiv.textContent = 'Please complete the CAPTCHA check.';
-                formErrorMessageDiv.style.display = 'block';
-                delete form.dataset.submitted;
-                return;
-            }
-
             submitButton.disabled = true;
             submitButtonTextSpan.textContent = 'Sending...';
+            const originalIconClass = submitButton.querySelector('i').className;
+            submitButton.querySelector('i').className = 'fas fa-spinner fa-spin';
 
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
@@ -280,15 +245,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     formErrorMessageDiv.textContent = result.message || 'An unexpected error occurred.';
                     formErrorMessageDiv.style.display = 'block';
-                    resetTurnstile();
                 }
             } catch (error) {
                 formErrorMessageDiv.textContent = 'A network error occurred. Please try again.';
                 formErrorMessageDiv.style.display = 'block';
-                resetTurnstile();
             } finally {
                 submitButton.disabled = false;
                 submitButtonTextSpan.textContent = 'Send Inquiry';
+                submitButton.querySelector('i').className = originalIconClass;
                 delete form.dataset.submitted;
             }
         });
@@ -307,10 +271,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 charCountDisplay.textContent = `0/${maxLength}`;
                 formErrorMessageDiv.style.display = 'none';
                 nameInput.focus();
-                resetTurnstile();
             }, 300);
         });
     }
     initContactForm();
 
-});```
+});
