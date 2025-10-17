@@ -190,7 +190,7 @@ a:hover, a:focus { color: var(--color-accent-gold); text-decoration: underline; 
 /* 7. PAGE HERO BANNER
 -------------------------------------------------- */
 .page-hero-banner {
-    padding: calc(var(--spacing-unit) * 8) calc(var(--spacing-unit) * 4);
+    padding: calc(var(--spacing-unit) * 15) calc(var(--spacing-unit) * 4); /* Increased padding for larger banner size */
     text-align: center;
     background-color: transparent; /* Transparent background for clear wallpaper view */
     color: var(--color-text-light);
@@ -257,7 +257,8 @@ a:hover, a:focus { color: var(--color-accent-gold); text-decoration: underline; 
 /* 9. CALL TO ACTION (CTA) SECTIONS & BUTTONS
 -------------------------------------------------- */
 .cta-button {
-    display: inline-flex; align-items: center; justify-content: center;
+    display: inline-flex; /* Ensures it respects text-align: center from parent */
+    align-items: center; justify-content: center;
     gap: calc(var(--spacing-unit) * 1.5);
     padding: calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 4);
     background: linear-gradient(145deg, var(--color-accent-gold), var(--color-accent-gold-darker));
