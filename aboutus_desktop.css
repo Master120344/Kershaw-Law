@@ -111,7 +111,6 @@ a:hover, a:focus { color: var(--color-accent-gold); text-decoration: underline; 
 
 /* 5. HEADER & DESKTOP NAVIGATION STYLES */
 .site-header { position: fixed; top: 0; left: 0; width: 100%; z-index: 900; height: var(--header-height-desktop); background-color: rgba(255, 255, 255, 0.92); backdrop-filter: blur(10px); box-shadow: 0 1px 5px var(--color-shadow-medium); border-bottom: 1px solid var(--color-border-subtle); display: flex; align-items: center; padding: 0 calc(var(--spacing-unit) * 4); transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1); }
-/* Removed .site-header.scrolled-down { transform: translateY(-100%); } */
 .header-content { width: 100%; max-width: var(--content-max-width); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
 .firm-title-link { text-decoration: none !important; }
 .firm-title-link:hover .firm-name-header { color: var(--color-accent-gold); }
@@ -141,7 +140,7 @@ a:hover, a:focus { color: var(--color-accent-gold); text-decoration: underline; 
 
 /* 7. HERO SECTION (ABOUT US) */
 .page-hero-banner { min-height: 40vh; padding: calc(var(--spacing-unit) * 5); display: flex; align-items: center; justify-content: center; text-align: center; color: var(--color-text-light); }
-.about-us-banner { background-color: rgba(var(--color-primary-brand-rgb), 0.5); }
+.about-us-banner { background-color: transparent; }
 .page-hero-content { z-index: 1; }
 .page-hero-title { color: var(--color-text-light); text-shadow: 1px 1px 4px rgba(0,0,0,0.4); }
 .page-hero-subtitle { font-size: clamp(1.2rem, 3vw, 1.5rem); color: rgba(255,255,255,0.9); margin-bottom: 0; font-style: italic; }
@@ -176,5 +175,55 @@ a:hover, a:focus { color: var(--color-accent-gold); text-decoration: underline; 
 .final-cta-section .section-intro-text { color: rgba(255,255,255,0.92); }
 .final-cta-section .cta-button { margin-top: calc(var(--spacing-unit) * 3); }
 
+/* 10. FOOTER STYLES */
+.site-footer {
+    background-color: var(--color-primary-brand);
+    color: var(--color-text-light);
+    padding: calc(var(--spacing-unit) * 4) calc(var(--spacing-unit) * 4);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    width: 100%;
+    margin-top: auto;
+}
+.footer-content {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    text-align: center;
+}
+.footer-firm-identity {
+    margin-bottom: calc(var(--spacing-unit) * 1.5);
+}
+.footer-firm-name {
+    font-family: var(--font-headings);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-text-on-primary);
+}
+.footer-links {
+    margin-bottom: calc(var(--spacing-unit) * 1.5);
+}
+.footer-links a {
+    color: var(--color-text-on-primary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+.footer-links a:hover {
+    color: var(--color-accent-gold);
+    text-decoration: underline;
+}
+.footer-link-separator {
+    margin: 0 calc(var(--spacing-unit) * 1);
+    color: rgba(255, 255, 255, 0.5);
+}
+.footer-copyright {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: calc(var(--spacing-unit) * 1);
+}
+.footer-disclaimer {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
 /* 11. ANIMATION & UTILITY CLASSES (Standard) */
-/* All animation-related classes were removed as requested. */
