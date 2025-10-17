@@ -10,9 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Cloudflare Turnstile Script -->
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-    <!-- Add favicon links here if available -->
 </head>
 <body>
     <div id="splash-loader" class="splash-loader">
@@ -71,7 +69,7 @@
                         <i class="fas fa-envelope detail-icon"></i>
                         <h3 class="detail-title">Email Us</h3>
                         <p>General Inquiries & Support</p>
-                        <p><a href="https://kershawlaw.com/cdn-cgi/l/email-protection#224b4c444d62494750514e47514a47510c454d4f"><span class="__cf_email__" data-cfemail="264f484049664d4354554e47514a47510845494b">[email&#160;protected]</span></a></p>
+                        <p><a href="/cdn-cgi/l/email-protection#9ff6f1f9f0dff4faedecf7fee8f3fee8b1fcf0f2"><span class="__cf_email__" data-cfemail="ff96919990bf949a8d8c979e88939e88d19c9092">[email&#160;protected]</span></a></p>
                     </div>
                 </div>
 
@@ -112,15 +110,14 @@
                             </label>
                             <textarea id="contact-message" name="message" rows="6" required placeholder="Please describe your business needs or question..." maxlength="5000"></textarea>
                         </div>
-
-                        <!-- Cloudflare Turnstile CAPTCHA Widget -->
-                        <div class="form-group form-captcha-group">
-                             <div class="cf-turnstile" data-sitekey="0x4AAAAAABrX-WzgbEapYbxH" data-theme="dark"></div>
-                        </div>
                         
                         <div id="form-error-message" class="form-error-message" style="display: none;"></div>
 
-                        <div class="form-group form-submit-group">
+                        <div class="captcha-container">
+                             <div class="cf-turnstile" data-sitekey="0x4AAAAAABrX-WzgbEapYbxH" data-theme="dark"></div>
+                        </div>
+
+                        <div class="form-submit-group">
                             <button type="submit" class="cta-button form-submit-button" id="form-submit-button">
                                 <span class="submit-button-text">Send Inquiry</span>
                             </button>
@@ -144,17 +141,18 @@
                 <p class="footer-firm-name">The Kershaw Law Firm P.C.</p>
             </div>
             <nav class="footer-links">
-                <a href="https://kershawlaw.com/privacy_policy_desktop.html">Privacy Policy</a>
+                <a href="privacy_policy_desktop.html">Privacy Policy</a>
                 <span class="footer-link-separator">•</span>
-                <a href="https://kershawlaw.com/terms_of_service_desktop.html">Terms of Service</a>
+                <a href="terms_of_service_desktop.html">Terms of Service</a>
                  <span class="footer-link-separator">•</span>
-                <a href="https://kershawlaw.com/sitemap_desktop.html">Sitemap</a>
+                <a href="sitemap_desktop.html">Sitemap</a>
             </nav>
             <p class="footer-copyright">© <span id="current-year">2024</span> The Kershaw Law Firm P.C. All Rights Reserved.</p>
             <p class="footer-disclaimer">This website is for informational purposes only and does not constitute legal advice. Attorney Advertising. Results may vary depending on your particular facts and legal circumstances.</p>
         </div>
     </footer>
 
-    <script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="contact_desktop.js" defer></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="contact_desktop.js" defer></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"4bd118d2e7aa452d8606027c9e0e5507","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
