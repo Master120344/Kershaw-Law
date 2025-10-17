@@ -111,7 +111,7 @@ a:hover, a:focus { color: var(--color-accent-gold); text-decoration: underline; 
 
 /* 5. HEADER & DESKTOP NAVIGATION STYLES */
 .site-header { position: fixed; top: 0; left: 0; width: 100%; z-index: 900; height: var(--header-height-desktop); background-color: rgba(255, 255, 255, 0.92); backdrop-filter: blur(10px); box-shadow: 0 1px 5px var(--color-shadow-medium); border-bottom: 1px solid var(--color-border-subtle); display: flex; align-items: center; padding: 0 calc(var(--spacing-unit) * 4); transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1); }
-.site-header.scrolled-down { transform: translateY(-100%); }
+/* Removed .site-header.scrolled-down { transform: translateY(-100%); } */
 .header-content { width: 100%; max-width: var(--content-max-width); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
 .firm-title-link { text-decoration: none !important; }
 .firm-title-link:hover .firm-name-header { color: var(--color-accent-gold); }
@@ -176,20 +176,5 @@ a:hover, a:focus { color: var(--color-accent-gold); text-decoration: underline; 
 .final-cta-section .section-intro-text { color: rgba(255,255,255,0.92); }
 .final-cta-section .cta-button { margin-top: calc(var(--spacing-unit) * 3); }
 
-/* 10. FOOTER STYLES (Standard) */
-.site-footer { background-color: var(--color-bg-footer); color: #b0bec5; text-align: center; padding: calc(var(--spacing-unit) * 5) calc(var(--spacing-unit) * 4); font-size: 0.9rem; line-height: 1.6; }
-.footer-content { max-width: var(--content-max-width); margin: 0 auto; width: 100%; }
-.footer-firm-name { font-family: var(--font-headings); font-size: 1.25rem; color: var(--color-text-light); font-weight: 600; margin-bottom: calc(var(--spacing-unit) * 2.5); }
-.footer-links { margin-bottom: calc(var(--spacing-unit) * 2); font-size: 0.9rem; }
-.footer-links a { color: #b0bec5 !important; margin: 0 calc(var(--spacing-unit)); transition: color var(--transition-fast); }
-.footer-links a:hover { color: var(--color-accent-gold) !important; text-decoration: underline; }
-.footer-link-separator { margin: 0 calc(var(--spacing-unit) * 0.5); opacity: 0.7; }
-.footer-copyright { margin-bottom: var(--spacing-unit); font-size: 0.8rem; }
-.footer-disclaimer { font-size: 0.75rem; opacity: 0.65; margin-top: var(--spacing-unit) * 2; max-width: 800px; margin-left: auto; margin-right: auto; }
-
 /* 11. ANIMATION & UTILITY CLASSES (Standard) */
-.animate-on-scroll { opacity: 0; transition-property: opacity, transform; transition-duration: 0.7s; transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-.animate-on-scroll.fade-in-up { transform: translateY(50px); }
-.animate-on-scroll.slide-in-left { transform: translateX(-40px); }
-.animate-on-scroll.fade-in-scale { transform: scale(0.95); }
-.animate-on-scroll.is-visible { opacity: 1; transform: translateY(0) translateX(0) scale(1); }
+/* All animation-related classes were removed as requested. */
