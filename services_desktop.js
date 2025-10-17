@@ -5,23 +5,6 @@
 const INITIAL_SPLASH_DURATION_MS = 100;
 const PAGE_TRANSITION_ANIMATION_MS = 300;
 
-// --- Utility Functions ---
-function debounce(func, wait, immediate) {
-    let timeout;
-    return function executedFunction() {
-        const context = this;
-        const args = arguments;
-        const later = function() {
-            timeout = null;
-            if (!immediate) func.apply(context, args);
-        };
-        const callNow = immediate && !timeout;
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-        if (callNow) func.apply(context, args);
-    };
-}
-
 // --- Initial Page Load & Splash Screen Logic ---
 function initPageLoad() {
     const splashLoader = document.getElementById('splash-loader');
@@ -52,24 +35,7 @@ function initPageLoad() {
 }
 window.addEventListener('load', initPageLoad);
 
-// Scroll-triggered Animations
-window.initScrollAnimations = function() {
-    const animatedElements = document.querySelectorAll('.animate-on-scroll');
-    if (!animatedElements.length || !('IntersectionObserver' in window)) return;
-    const observerOptions = { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.1 };
-    const animationObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const delay = parseInt(entry.target.dataset.animationDelay) || 0;
-                setTimeout(() => entry.target.classList.add('is-visible'), delay);
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-    animatedElements.forEach(el => {
-        if (!el.classList.contains('is-visible')) animationObserver.observe(el);
-    });
-};
+// Scroll-triggered Animations logic removed
 
 // Handle bfcache (Back-Forward Cache)
 window.addEventListener('pageshow', (event) => {
@@ -87,7 +53,6 @@ window.addEventListener('pageshow', (event) => {
                 mainContent.style.transition = `opacity ${PAGE_TRANSITION_ANIMATION_MS / 1000}s ease-out`;
             }, 50);
         }
-        if (typeof window.initScrollAnimations === 'function') setTimeout(window.initScrollAnimations, 100);
         if (typeof window.initDesktopNavActiveTab === 'function') window.initDesktopNavActiveTab();
     }
 });
@@ -128,8 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     updateFooterYear();
 
-    // 3. Initialize Scroll Animations
-    if (typeof window.initScrollAnimations === 'function') window.initScrollAnimations();
+    // 3. Initialize Scroll Animations (Removed)
 
     // 4. Smooth Scroll for Anchors
     function initSmoothScroll() {
@@ -152,26 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     initSmoothScroll();
 
-    // 5. Sticky Header Behavior
-    function initStickyHeaderBehavior() {
-        const header = document.getElementById('site-header');
-        if (!header) return;
-        let lastScrollTop = 0;
-        const delta = 10;
-        const headerHeight = header.offsetHeight;
-        const handleScroll = debounce(() => {
-            const nowST = window.pageYOffset || document.documentElement.scrollTop;
-            if (Math.abs(lastScrollTop - nowST) <= delta) return;
-            if (nowST > lastScrollTop && nowST > headerHeight) {
-                header.classList.add('scrolled-down');
-            } else {
-                 header.classList.remove('scrolled-down');
-            }
-            lastScrollTop = nowST <= 0 ? 0 : nowST;
-        }, 50);
-        window.addEventListener('scroll', handleScroll, { passive: true });
-    }
-    initStickyHeaderBehavior();
+    // 5. Sticky Header Behavior (Removed logic to hide header on scroll down)
 
     // 6. Desktop Navigation Active State
     window.initDesktopNavActiveTab = function() {
