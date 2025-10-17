@@ -128,27 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Initialize Scroll Animations
     if (typeof window.initScrollAnimations === 'function') window.initScrollAnimations();
 
-    // 4. Sticky Header Behavior
-    function initStickyHeaderBehavior() {
-        const header = document.getElementById('site-header');
-        if (!header) return;
-        let lastScrollTop = 0;
-        const delta = 10;
-        const headerHeight = header.offsetHeight;
-
-        const handleScroll = debounce(() => {
-            const nowST = window.pageYOffset || document.documentElement.scrollTop;
-            if (Math.abs(lastScrollTop - nowST) <= delta) return;
-            if (nowST > lastScrollTop && nowST > headerHeight) {
-                header.classList.add('scrolled-down');
-            } else {
-                 header.classList.remove('scrolled-down');
-            }
-            lastScrollTop = nowST <= 0 ? 0 : nowST;
-        }, 50);
-        window.addEventListener('scroll', handleScroll, { passive: true });
-    }
-    initStickyHeaderBehavior();
+    // 4. Sticky Header Behavior - Logic removed to prevent header movement
 
     // 5. FAQ Accordion Logic
     function initFaqAccordion() {
