@@ -1,6 +1,3 @@
-// getstarted_mobile.js
-
-// --- Strict Mode & Global Constants ---
 "use strict";
 const INITIAL_SPLASH_DURATION_MS = 100;
 const PAGE_TRANSITION_ANIMATION_MS = 300;
