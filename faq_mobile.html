@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>FAQ - The Kershaw Law Firm P.C.</title>
-    <meta name="description" content="Find answers to frequently asked questions about H-2A and H-2B temporary work visas. Insights from The Kershaw Law Firm P.C.">
-    <link rel="stylesheet" href="faq_mobile.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>H-2A & H-2B Employer Questions | The Kershaw Law Firm P.C.</title>
+    <meta name="description" content="Answers to employer questions about H-2A and H-2B eligibility, recruitment, filing stages, worker protections, and initial inquiries.">
+    <link rel="stylesheet" href="site.css">
     <!-- Add favicon links here if available -->
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="preload" href="assets/fonts/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <div id="splash-loader" class="splash-loader">
         <div class="splash-text-content">
             <h1 class="splash-main-title">The Kershaw Law Firm <span class="splash-main-pc">P.C.</span></h1>
@@ -26,165 +25,136 @@
     <div id="background-overlay"></div>
 
     <header class="site-header" id="site-header">
+        <div class="utility-bar"><div class="utility-content"><span>Austin, Texas <span class="utility-label"> / Employer immigration</span></span><a href="tel:737-204-0093">(737) 204-0093</a></div></div>
         <div class="header-content">
-            <div class="firm-title-container">
-                 <a href="index_mobile.html" class="firm-title-link" aria-label="Home - The Kershaw Law Firm P.C.">
-                    <h1 class="firm-name-header">The Kershaw Law Firm <span class="firm-name-pc">P.C.</span></h1>
-                 </a>
-            </div>
+            <a href="index_mobile.html" class="firm-title-link" aria-label="The Kershaw Law Firm P.C. — Home"><span class="brand-name">Kershaw</span><span class="brand-descriptor">Law Firm, P.C.</span></a>
+            <nav class="mobile-tabs" aria-label="Main navigation"><a href="index_mobile.html" class="tab-item">Home</a><a href="aboutus_mobile.html" class="tab-item">The Firm</a><a href="services_mobile.html" class="tab-item">Visa Services</a><a href="faq_mobile.html" class="tab-item active" aria-current="page">FAQs</a><a href="contact_mobile.html" class="tab-item">Contact</a></nav>
+            <a class="nav-cta" href="getstarted_mobile.html">Request information</a>
         </div>
     </header>
 
-    <main class="page-content-wrapper" id="main-content">
+    <main class="page-content-wrapper" id="main-content" tabindex="-1">
+        <section class="page-hero-banner faq-banner">
+            <div class="page-hero-content">
+                <p class="eyebrow">Employer resources</p>
+                <h1 class="page-hero-title">Questions worth<br>asking early.</h1>
+                <p class="page-hero-subtitle">A starting point for understanding H-2A and H-2B temporary worker programs.</p>
+            </div>
+        </section>
+
         <section class="content-section faq-page-section">
+            <div class="section-container editorial-split">
+                <aside class="section-heading">
+                    <p class="eyebrow">Frequently asked questions</p>
+                    <h2>Understand the process<br>before you begin.</h2>
+                    <p>These answers provide general information, not legal advice. Requirements can change, and the rules that apply depend on the facts of your matter.</p>
+                </aside>
+                <div class="faq-list">
+                    <details class="faq-item" open>
+                        <summary>What is the difference between H-2A and H-2B?</summary>
+                        <div class="faq-body">
+                            <p>H-2A covers agricultural labor or services of a temporary or seasonal nature. H-2B covers temporary nonagricultural employment. Both require the employer to satisfy labor certification requirements, including U.S. worker recruitment and protections for wages and working conditions.</p>
+                            <p>The job duties and the employer's temporary need determine which program, if either, may be appropriate.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Does a labor shortage make an employer eligible?</summary>
+                        <div class="faq-body">
+                            <p>No. An employer must also meet the program's requirements for the work and its temporary need. For H-2B, that need must fit a one-time occurrence, seasonal, peakload, or intermittent category. H-2A work must be agricultural and temporary or seasonal.</p>
+                            <p>The employer must document the relevant facts and comply with recruitment and employment requirements.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>What are the main stages of the process?</summary>
+                        <div class="faq-body">
+                            <p>Generally, the employer completes the Department of Labor's temporary labor certification process, including required recruitment, and then files a petition with USCIS. For workers outside the United States, visa processing where required and admission are additional steps.</p>
+                            <p>A labor certification is not a visa, and approval at one stage does not guarantee approval at the next.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>How far in advance should we begin?</summary>
+                        <div class="faq-body">
+                            <p>Begin planning well before the proposed start date. The programs have prescribed filing windows, recruitment requirements, and separate agency processes. The time needed to collect records, prepare filings, and complete later stages varies.</p>
+                            <p>Consult the <a href="https://www.dol.gov/agencies/eta/foreign-labor/programs/h-2a" target="_blank" rel="noopener noreferrer">current H-2A filing guidance</a> or <a href="https://www.dol.gov/agencies/eta/foreign-labor/programs/h-2b" target="_blank" rel="noopener noreferrer">H-2B filing guidance</a> and discuss your proposed dates before committing to a hiring timetable.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>What should we prepare for an initial discussion?</summary>
+                        <div class="faq-body">
+                            <p>Have your proposed job duties, worksite locations, employment dates, number of workers, and wage information available. Records explaining the seasonal or temporary need, past staffing patterns, and any prior program filings are also useful.</p>
+                            <p>The documents needed for a filing depend on the program and the employer's circumstances.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>What responsibilities continue after approval?</summary>
+                        <div class="faq-body">
+                            <p>Employers must comply with applicable wage and employment terms, keep required records, and meet the program's worker protection requirements. H-2A includes housing and transportation obligations for covered workers. H-2B has its own recruitment, wage, transportation, and other requirements.</p>
+                            <p>Some protections also apply to U.S. workers in corresponding employment. Approval does not remove these obligations.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Can recruitment or legal costs be charged to workers?</summary>
+                        <div class="faq-body">
+                            <p>Employers must not pass prohibited recruitment, labor certification, or related attorney and agent costs to workers. The precise cost and reimbursement rules depend on the program and the expense involved.</p>
+                            <p>Review recruiter arrangements and deductions before workers incur costs. The <a href="https://www.dol.gov/general/migrantworker/recruitment" target="_blank" rel="noopener noreferrer">Department of Labor's recruitment guidance</a> explains important worker protections.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Can approval or a worker arrival date be guaranteed?</summary>
+                        <div class="faq-body">
+                            <p>No. Government agencies make approval decisions. Processing times, visa availability, additional evidence requests, and admission procedures can affect the outcome and timing.</p>
+                            <p>A case assessment can identify relevant requirements and risks; it cannot promise an approval or a specific arrival date.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Does sending an inquiry make us a client?</summary>
+                        <div class="faq-body">
+                            <p>No. Sending a form, email, or other inquiry does not by itself establish an attorney-client relationship. Representation begins only after the firm agrees to accept a matter.</p>
+                            <p>Keep an initial inquiry to general business and contact information. Do not send sensitive or confidential material before the firm confirms how it should be provided.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="section-container editorial-split">
+                <aside class="section-heading">
+                    <p class="eyebrow">Go to the source</p>
+                    <h2>Official program<br>information.</h2>
+                </aside>
+                <div class="section-copy">
+                    <p>Agency guidance is the place to check current requirements. These resources are provided for convenience; the firm is not affiliated with the government agencies listed.</p>
+                    <div class="resource-links" aria-label="Official H-2A and H-2B resources">
+                        <a href="https://www.dol.gov/agencies/eta/foreign-labor/programs/h-2a" target="_blank" rel="noopener noreferrer">Department of Labor / H-2A</a>
+                        <a href="https://www.dol.gov/agencies/eta/foreign-labor/programs/h-2b" target="_blank" rel="noopener noreferrer">Department of Labor / H-2B</a>
+                        <a href="https://www.uscis.gov/i-129" target="_blank" rel="noopener noreferrer">USCIS / Petition for a Nonimmigrant Worker</a>
+                        <a href="https://www.dol.gov/general/migrantworker/recruitment" target="_blank" rel="noopener noreferrer">Department of Labor / Recruitment protections</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section final-cta-section">
             <div class="section-container">
-                <h2 class="section-title decorative-title animate-on-scroll fade-in-up">H-2A & H-2B Visa FAQs</h2>
-                <p class="section-intro-text animate-on-scroll fade-in-up" data-animation-delay="100">
-                    Navigating temporary work visas can be challenging. We've compiled answers to common questions to help you understand the H-2A and H-2B programs.
-                </p>
-
-                <div class="faq-list animate-on-scroll fade-in-up" data-animation-delay="200">
-                    <div class="faq-item">
-                        <button class="faq-question" aria-expanded="false">
-                            <span>What are H-2A & H-2B visas?</span>
-                            <i class="fas fa-chevron-down question-icon"></i>
-                        </button>
-                        <div class="faq-answer">
-                            <p>These visas allow U.S. employers to hire foreign nationals for temporary jobs. The <strong>H-2A visa</strong> is for temporary or seasonal agricultural work. The <strong>H-2B visa</strong> is for temporary non-agricultural work (e.g., landscaping, construction, hospitality). Both programs require employers to demonstrate that there are not enough U.S. workers who are able, willing, qualified, and available for the temporary work.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <button class="faq-question" aria-expanded="false">
-                            <span>Who is eligible to hire H-2A workers?</span>
-                            <i class="fas fa-chevron-down question-icon"></i>
-                        </button>
-                        <div class="faq-answer">
-                            <p>U.S. employers or agricultural associations who anticipate a shortage of domestic workers for temporary agricultural jobs can petition for H-2A workers. Key requirements include:</p>
-                            <ul>
-                                <li>Demonstrating the need for workers is temporary or seasonal.</li>
-                                <li>Showing that insufficient U.S. workers are available.</li>
-                                <li>Ensuring employment of H-2A workers will not adversely affect the wages and working conditions of U.S. workers.</li>
-                                <li>Complying with Department of Labor (DOL) regulations regarding recruitment, wages, housing, and transportation.</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <button class="faq-question" aria-expanded="false">
-                            <span>What is the H-2B eligibility & annual cap?</span>
-                            <i class="fas fa-chevron-down question-icon"></i>
-                        </button>
-                        <div class="faq-answer">
-                            <p>The H-2B visa is for temporary non-agricultural jobs. Employers must prove a temporary need (a one-time occurrence, seasonal need, or peak-load need) and that U.S. workers are not available. A significant factor for H-2B is the <strong>statutory annual cap</strong> set by Congress, which is often supplemented but still highly competitive. Demand consistently exceeds the cap, often leading to a lottery. Timely and accurate filing is critical.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <button class="faq-question" aria-expanded="false">
-                            <span>What is a typical H-2 visa process timeline?</span>
-                            <i class="fas fa-chevron-down question-icon"></i>
-                        </button>
-                        <div class="faq-answer">
-                            <p>Starting early is crucial. General timelines are:</p>
-                            <p><strong>For H-2A visas:</strong> Employers should ideally begin the process at least <strong>75 days (but no fewer than 60 days)</strong> before the workers' intended start date. More lead time is always better.</p>
-                            <p><strong>For H-2B visas:</strong> Due to the cap, employers should start preparations **6 to 9 months** before the employment start date to plan around cap subjection periods.</p>
-                            <p>Key steps in both processes typically include filing with the Department of Labor (DOL), conducting U.S. worker recruitment, and then filing a petition with U.S. Citizenship and Immigration Services (USCIS). Our firm manages each step to ensure an efficient and compliant process.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                         <button class="faq-question" aria-expanded="false">
-                             <span>What are the typical costs for employers?</span>
-                             <i class="fas fa-chevron-down question-icon"></i>
-                         </button>
-                         <div class="faq-answer">
-                             <p>Employer costs can vary, but generally include:</p>
-                             <ul>
-                                 <li><strong>Government Filing Fees:</strong> Fees payable to USCIS for the I-129 petition and other related costs. Employers should always check the current USCIS fee schedule.</li>
-                                 <li><strong>Recruitment Costs:</strong> Expenses for advertising job opportunities to U.S. workers as required.</li>
-                                 <li><strong>Legal Fees:</strong> We provide transparent cost estimates upfront, typically offering a flat-fee structure for standard petitions.</li>
-                                 <li><strong>Worker-Related Costs:</strong>
-                                    <ul>
-                                        <li><strong>Both H-2A & H-2B:</strong> Inbound and outbound transportation for workers who complete a certain portion of the contract.</li>
-                                        <li><strong>H-2A Specific:</strong> Providing housing at no cost to H-2A workers.</li>
-                                        <li>Employers generally cover the workers' visa application fees.</li>
-                                    </ul>
-                                 </li>
-                             </ul>
-                             <p>We provide a detailed breakdown of anticipated costs during your consultation.</p>
-                         </div>
-                     </div>
-
-                    <div class="faq-item">
-                         <button class="faq-question" aria-expanded="false">
-                             <span>How long can H-2 workers stay & can it be extended?</span>
-                             <i class="fas fa-chevron-down question-icon"></i>
-                         </button>
-                         <div class="faq-answer">
-                             <p>The initial period of stay granted to an H-2 worker matches the employer's certified temporary need, usually up to one year. Extensions are possible in increments, allowing a worker to remain in H-2 status for a maximum continuous period of up to <strong>3 years</strong>. After reaching the 3-year maximum, workers must depart the U.S. for an uninterrupted period before being eligible to return under H-2 status.</p>
-                         </div>
-                     </div>
-
-                    <div class="faq-item">
-                        <button class="faq-question" aria-expanded="false">
-                            <span>Why choose The Kershaw Law Firm P.C.?</span>
-                            <i class="fas fa-chevron-down question-icon"></i>
-                        </button>
-                        <div class="faq-answer">
-                            <p>Choosing the right legal partner is critical. We offer:</p>
-                            <ul>
-                                <li><strong>Specialized Focus:</strong> Our practice is dedicated to H-2A and H-2B immigration law, keeping us current on its specific regulations and trends.</li>
-                                <li><strong>Transparent Value:</strong> We use clear, competitive flat-fee structures for most H-2 petitions.</li>
-                                <li><strong>Personalized Support:</strong> Each client is assigned a dedicated legal assistant, with direct access to our attorneys.</li>
-                                <li><strong>Proactive Advocacy:</strong> We are actively involved in industry associations and advocacy efforts to protect and improve the H-2 programs.</li>
-                            </ul>
-                            <p>We are committed to helping you navigate complex immigration challenges to find successful workforce solutions for your business.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="text-center animate-on-scroll fade-in" data-animation-delay="300" style="margin-top: calc(var(--spacing-unit) * 5);">
-                    <a href="getstarted_mobile.html" class="cta-button">
-                        <i class="fa-solid fa-handshake-angle"></i> REQUEST INFORMATION
-                    </a>
-                </div>
+                <p class="eyebrow">Your circumstances matter</p>
+                <h2>Have a question about your business?</h2>
+                <p>Share the basics of your proposed employment and the program you are considering.</p>
+                <a href="getstarted_mobile.html" class="cta-button">Request information</a>
             </div>
         </section>
     </main>
 
-    <nav class="mobile-tabs">
-        <a href="index_mobile.html" class="tab-item">
-            <i class="fas fa-home tab-icon"></i><span class="tab-label">Home</span>
-        </a>
-        <a href="aboutus_mobile.html" class="tab-item">
-            <i class="fas fa-building-columns tab-icon"></i><span class="tab-label">About Us</span>
-        </a>
-        <a href="services_mobile.html" class="tab-item">
-            <i class="fas fa-briefcase tab-icon"></i><span class="tab-label">Services</span>
-        </a>
-        <a href="faq_mobile.html" class="tab-item active" aria-current="page">
-            <i class="fas fa-lightbulb tab-icon"></i><span class="tab-label">FAQ</span>
-        </a>
-        <a href="contact_mobile.html" class="tab-item">
-            <i class="fas fa-envelope-open-text tab-icon"></i><span class="tab-label">Contact</span>
-        </a>
-    </nav>
+
 
     <footer class="site-footer">
         <div class="footer-content">
-            <div class="footer-firm-identity">
-                <p class="footer-firm-name">The Kershaw Law Firm P.C.</p>
+            <div class="footer-top">
+                <div class="footer-firm-identity"><p class="footer-firm-name">The Kershaw Law Firm P.C.</p><p class="footer-location">Robert Davidson Kershaw Jr.<br>Austin, Texas<br>H-2A &amp; H-2B employer immigration</p></div>
+                <div><p class="footer-heading">Get in touch</p><nav class="footer-links" aria-label="Contact links"><a href="tel:737-204-0093">(737) 204-0093</a><a href="contact_mobile.html">Office &amp; contact details</a><a href="getstarted_mobile.html">Request information</a></nav></div>
+                <div><p class="footer-heading">Information</p><nav class="footer-links" aria-label="Legal and site information"><a href="privacy_policy_mobile.html">Privacy Policy</a><a href="terms_of_service_mobile.html">Website Terms</a><a href="sitemap_mobile.html">Sitemap</a></nav></div>
             </div>
-            <nav class="footer-links">
-                <a href="privacy_policy_mobile.html">Privacy Policy</a>
-                <span class="footer-link-separator">•</span>
-                <a href="terms_of_service_mobile.html">Terms of Service</a>
-                 <span class="footer-link-separator">•</span>
-                <a href="sitemap_mobile.html">Sitemap</a>
-            </nav>
-            <p class="footer-copyright">© <span id="current-year"></span> The Kershaw Law Firm P.C. All Rights Reserved.</p>
-            <p class="footer-disclaimer">This website is for informational purposes only and does not constitute legal advice. Attorney Advertising. Results may vary depending on your particular facts and legal circumstances.</p>
+            <div class="footer-bottom"><p class="footer-copyright">© <span id="current-year">2026</span> The Kershaw Law Firm P.C. All rights reserved.</p><p class="footer-disclaimer">Attorney Advertising. This website provides general information and does not constitute legal advice. Contacting the firm does not, by itself, create an attorney-client relationship. Program eligibility and legal outcomes depend on individual facts and current law. No outcome is guaranteed.</p></div>
         </div>
     </footer>
 

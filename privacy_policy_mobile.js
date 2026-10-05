@@ -60,17 +60,10 @@ function initPageTransitions() {
     });
 }
 
-// --- Dynamic Date and Year Update ---
+// --- Dynamic Footer Year Update ---
 function initDynamicDates() {
     const today = new Date();
-    const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-    const formattedDate = today.toLocaleDateString('en-US', dateOptions);
     const currentYear = today.getFullYear();
-
-    const dateSpan = document.getElementById('current-date');
-    if (dateSpan) {
-        dateSpan.textContent = formattedDate;
-    }
 
     const yearSpanFooter = document.getElementById('current-year-footer');
     if (yearSpanFooter) {
